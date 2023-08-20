@@ -6,10 +6,10 @@ export default function Footer() {
         <Container bg={"blackAlpha.300"} minW={"100%"} minH={"10vh"} bottom={0} p={5} mx={"auto"}>
             <AbsoluteCenter axis={"horizontal"}>
                 <Text textAlign={"center"} fontSize={"2xl"} fontFamily={"monospace"} fontWeight={"700"}>
-                    © Copyright 2023 emanuelVINI.
+                    © Copyright 2023.
                 </Text>
                 <Text textAlign={"center"} fontSize={"2xl"} fontFamily={"monospace"} fontWeight={"700"}>
-                    Made with much ❤️ in 19/08/2023 with 5 hours.
+                    Made with much ❤️ by emanuelVINI.
                 </Text>
             </AbsoluteCenter>
         </Container>
