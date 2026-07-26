@@ -1,55 +1,55 @@
-# portifolio
+# portfolio
 
-Portfólio técnico interativo de Emanuel Vini, construído para apresentar trajetória, projetos e evidências de engenharia de forma auditável. Este repositório funciona como índice público da evolução técnica: da base Java/Kotlin em servidores e automação até a fase atual com produtos web, sistemas transacionais e ferramentas para desenvolvedores.
+Interactive technical portfolio of Emanuel Vini, built to present a trajectory, projects, and engineering evidence in an auditable way. This repository works as a public index of technical evolution: from the Java/Kotlin base in servers and automation to the current phase with web products, transactional systems, and developer tools.
 
-## Propósito
+## Purpose
 
-O projeto não é apenas uma landing page. Ele organiza a narrativa profissional em torno de provas: repositórios, stacks, decisões de arquitetura, linha do tempo e projetos com contexto suficiente para avaliação técnica. A leitura foi pensada como vitrine técnica: times de engenharia conseguem escanear a história, inspecionar evidências, filtrar projetos e abrir runbooks com blocos de comando.
+The project is not just a landing page. It organizes the professional narrative around proofs: repositories, stacks, architectural decisions, timeline, and projects with enough context for technical evaluation. The reading was designed as a technical showcase: engineering teams can scan the history, inspect evidence, filter projects, and open runbooks with command blocks.
 
-## Linha técnica
+## Technical Timeline
 
-- 2020-2021: entrada por Java, Minecraft, `.jar`, `plugin.yml`, Bukkit/Spigot e debugging direto em runtime.
-- 2022-2023: evolução para JVM, Kotlin, bots de Discord, APIs multi-servidor, SQL e automações ligadas a comunidades reais.
-- 2026: consolidação em aplicações demonstráveis com Next.js, TypeScript, Prisma, PostgreSQL, Fastify, autenticação, dashboards e sistemas transacionais.
+- 2020-2021: entry through Java, Minecraft, `.jar`, `plugin.yml`, Bukkit/Spigot, and direct runtime debugging.
+- 2022-2023: evolution to JVM, Kotlin, Discord bots, multi-server APIs, SQL, and automation linked to real communities.
+- 2026: consolidation in demonstrable applications with Next.js, TypeScript, Prisma, PostgreSQL, Fastify, authentication, dashboards, and transactional systems.
 
 ## Stack
 
-- Next.js 16 com App Router
+- Next.js 16 with App Router
 - React 19
 - TypeScript
 - Tailwind CSS 4
 - Framer Motion
-- Lucide React e React Icons
+- Lucide React and React Icons
 
-## Arquitetura do repositório
+## Repository Architecture
 
-- `app/`: rotas principais, landing page e catálogo de projetos.
-- `src/components/`: componentes de UI, navegação, motion, cards, modal e terminal visual.
-- `src/data/projects.ts`: catálogo tipado dos projetos em português e inglês.
-- `src/i18n/`: dicionários de conteúdo e copy bilíngue.
-- `context/contexto_github.md`: snapshot histórico usado como base de auditoria dos repositórios.
+- `app/`: main routes, landing page, and project catalog.
+- `src/components/`: UI components, navigation, motion, cards, modal, and visual terminal.
+- `src/data/projects.ts`: typed project catalog in Portuguese and English.
+- `src/i18n/`: content dictionaries and bilingual copy.
+- `context/contexto_github.md`: historical snapshot used as the base for repository auditing.
 
-## Decisões de design
+## Design Decisions
 
-- Interface dark, orientada a terminal e leitura técnica, sem depender de uma apresentação genérica de currículo.
-- Conteúdo bilíngue com `LanguageContext`, mantendo português e inglês alinhados.
-- Cards e modais tratam projetos como evidências auditáveis, não como vitrines vazias.
-- Motion é usado para guiar leitura e hierarquia visual, não para esconder falta de conteúdo.
+- Dark interface, terminal-oriented and meant for technical reading, without relying on a generic resume presentation.
+- Bilingual content with `LanguageContext`, keeping Portuguese and English aligned.
+- Cards and modals treat projects as auditable evidence, not as empty showcases.
+- Motion is used to guide reading and visual hierarchy, not to hide a lack of content.
 
-## Execução local
+## Local Execution
 
 ```bash
 npm install
 npm run dev
 ```
 
-Abra `http://localhost:3000`.
+Open `http://localhost:3000`.
 
-## Qualidade
+## Quality
 
 ```bash
 npm run lint
 npm run build
 ```
 
-Use `npm run lint` antes de mudanças de UI e `npm run build` quando alterar estrutura de rotas, componentes compartilhados, dados de projetos ou dicionários.
+Use `npm run lint` before UI changes and `npm run build` when altering the route structure, shared components, project data, or dictionaries.
