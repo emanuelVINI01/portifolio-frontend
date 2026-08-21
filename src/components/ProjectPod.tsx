@@ -197,7 +197,8 @@ export default function ProjectPod({ project, onClick, index = 0, spotlight = fa
               target="_blank"
               rel="noopener noreferrer"
               onClick={(event) => event.stopPropagation()}
-              className="inline-flex min-w-0 items-center gap-1.5 text-dracula-green transition-colors hover:text-dracula-cyan"
+              className="inline-flex min-w-0 items-center gap-1.5 transition-colors"
+              style={{ color: project.color }}
             >
               {t.common.liveProject}
               <ExternalLink className="h-3.5 w-3.5" />
@@ -208,7 +209,10 @@ export default function ProjectPod({ project, onClick, index = 0, spotlight = fa
             target="_blank"
             rel="noopener noreferrer"
             onClick={(event) => event.stopPropagation()}
-            className="inline-flex min-w-0 items-center gap-1.5 text-dracula-comment transition-colors hover:text-dracula-cyan"
+            className="inline-flex min-w-0 items-center gap-1.5 transition-colors"
+            style={{ color: 'var(--dracula-comment)' }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = project.color)}
+            onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--dracula-comment)')}
           >
             GitHub
             <ExternalLink className="h-3.5 w-3.5" />

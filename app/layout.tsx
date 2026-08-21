@@ -14,26 +14,93 @@ const firaCode = Fira_Code({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://emanuelvini.dev"),
+  metadataBase: new URL("https://emanuelmissena.com"),
   title: {
-    default: "emanuelVINI | Full-stack Developer Portfolio",
-    template: "%s | emanuelVINI",
+    default: "Emanuel Vini | EmanuelMissena – Full-stack Developer Portfolio",
+    template: "%s | Emanuel Vini",
   },
   description:
-    "Portfolio interativo de Emanuel Vini, desenvolvedor full-stack focado em produtos web, APIs resilientes, sistemas transacionais, automação e interfaces com Framer Motion.",
+    "Portfólio de Emanuel Vini (EmanuelMissena), desenvolvedor full-stack de 16 anos. Do baixo nível com VMs e Rust ao alto nível com Next.js, APIs REST, apps mobile e IA aplicada.",
+  keywords: [
+    "Emanuel Vini",
+    "EmanuelMissena",
+    "Emanuel Missena",
+    "emanuelvini",
+    "emanuelVINI01",
+    "full-stack developer",
+    "desenvolvedor full-stack",
+    "portfolio",
+    "Next.js",
+    "React",
+    "TypeScript",
+    "Prisma",
+    "PostgreSQL",
+    "APIs REST",
+    "sistemas transacionais",
+    "IA aplicada",
+    "JavaScript",
+    "Node.js",
+  ],
+  authors: [{ name: "Emanuel Vini", url: "https://emanuelmissena.com" }],
+  creator: "Emanuel Vini",
+  publisher: "Emanuel Vini",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+    },
+  },
+  alternates: {
+    canonical: "https://emanuelmissena.com",
+  },
   icons: {
-    icon: "https://github.com/emanuelVINI01.png",
-    apple: "https://github.com/emanuelVINI01.png",
+    icon: "/profile.png",
+    apple: "/profile.png",
   },
   openGraph: {
-    title: "emanuelVINI | Full-stack Developer Portfolio",
+    title: "Emanuel Vini (EmanuelMissena) | Full-stack Developer",
     description:
-      "Produtos web, APIs resilientes, sistemas transacionais, automação e interfaces com Framer Motion.",
-    url: "https://emanuelvini.dev",
-    siteName: "emanuelVINI",
-    images: ["https://github.com/emanuelVINI01.png"],
-    type: "website",
+      "Portfólio de Emanuel Vini (EmanuelMissena). Engenharia de software do baixo nível (Rust, VMs) ao alto nível (APIs REST, mobile e IA).",
+    url: "https://emanuelmissena.com",
+    siteName: "Emanuel Vini Portfolio",
+    images: [{ url: "/profile.png", width: 400, height: 400, alt: "Emanuel Vini – Full-stack Developer" }],
+    type: "profile",
     locale: "pt_BR",
+  },
+  twitter: {
+    card: "summary",
+    title: "Emanuel Vini (EmanuelMissena) | Full-stack Developer",
+    description: "Do baixo nível com Rust/VMs ao alto nível com Next.js, APIs e IA aplicada.",
+    images: ["/profile.png"],
+  },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Emanuel Vini",
+  alternateName: ["EmanuelMissena", "Emanuel Missena", "emanuelVINI", "emanuelvini"],
+  url: "https://emanuelmissena.com",
+  image: "https://emanuelmissena.com/profile.png",
+  jobTitle: "Full-stack Software Developer",
+  description:
+    "Desenvolvedor full-stack de 16 anos especializado em sistemas transacionais, APIs REST, aplicações mobile e IA aplicada. Opera desde o baixo nível com VMs até produtos web de alta qualidade.",
+  knowsAbout: [
+    "Next.js", "React", "TypeScript", "Node.js", "Prisma", "PostgreSQL",
+    "APIs REST", "Sistemas Transacionais", "Inteligência Artificial",
+    "Java", "Kotlin", "Rust", "Servidores Linux", "Discord Bots",
+  ],
+  sameAs: [
+    "https://github.com/emanuelVINI01",
+    "https://emanuelmissena.com",
+  ],
+  address: {
+    "@type": "PostalAddress",
+    addressCountry: "BR",
   },
 };
 
@@ -44,6 +111,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className={`${jetbrains.variable} ${firaCode.variable} h-full`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className={`${jetbrains.className} min-h-full`}>
         <Providers>{children}</Providers>
       </body>

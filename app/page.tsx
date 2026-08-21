@@ -26,14 +26,7 @@ import {
   Copy,
   WalletCards,
 } from 'lucide-react';
-import {
-  SiCloudflare,
-  SiDiscord,
-  SiGithub,
-  SiLinux,
-  SiOvh,
-  SiTypescript,
-} from 'react-icons/si';
+
 
 import Footer from '@/components/Footer';
 import CommandTerminal, { type CommandTerminalLine } from '@/components/CommandTerminal';
@@ -42,6 +35,8 @@ import ProjectModal from '@/components/ProjectModal';
 import ProjectPod from '@/components/ProjectPod';
 import { getProjects, type Project } from '@/data/projects';
 import { useLanguage } from '@/context/LanguageContext';
+import { SiCloudflare, SiDiscord, SiGithub, SiKotlin, SiLinux, SiNextdotjs, SiOvh, SiPrisma, SiTypescript } from 'react-icons/si';
+
 
 const TechOrbit = dynamic(() => import('@/components/TechOrbit'), { ssr: false });
 const ParallaxGrid = dynamic(() => import('@/components/ParallaxGrid'), { ssr: false });
@@ -53,7 +48,7 @@ export default function HomePage() {
   const contactEmail = 'contact@emanuelvini.dev';
 
   const projects = getProjects(language);
-  const featuredProjects = ['transactional-wallet-ledger', 'apiflash', 'snippetvault']
+  const featuredProjects = ['simple-bank', 'browia', 'snippetvault']
     .map((id) => projects.find((project) => project.id === id))
     .filter(Boolean) as Project[];
 
@@ -124,15 +119,15 @@ export default function HomePage() {
     },
     {
       kind: 'command',
-      value: 'open /projects --spotlight transactional-wallet-ledger',
+      value: 'open /projects --spotlight simple-bank',
     },
     {
       kind: 'output',
       tone: 'warning',
       value:
         language === 'pt'
-          ? 'prioridade: consistência ACID, APIs, dashboards e UX de produto'
-          : 'priority: ACID consistency, APIs, dashboards, and product UX',
+          ? 'prioridade: ledger de dupla entrada, integração IA e arquitetura mobile-first'
+          : 'priority: double-entry ledger, AI integration, and mobile-first architecture',
     },
   ];
   const opsCommandLines: CommandTerminalLine[] = t.story.commandCenter.terminal.map((line) => {
@@ -165,25 +160,25 @@ export default function HomePage() {
         <Navbar />
 
         <main className="story-page-background relative overflow-hidden pb-24 md:pb-0">
-          <section id="home" className="mx-auto grid min-h-[calc(100svh-3.5rem)] max-w-6xl scroll-mt-20 items-center gap-8 px-4 pb-10 pt-20 sm:px-6 sm:pb-16 sm:pt-28 lg:grid-cols-[1.08fr_0.92fr] lg:gap-12">
+          <section id="home" className="mx-auto grid max-w-6xl scroll-mt-20 items-center gap-6 px-4 pb-6 pt-[4.5rem] sm:px-6 sm:pt-20 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10 lg:pb-10 lg:pt-24">
             <motion.div
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45 }}
             >
-              <div className="mb-5 inline-flex max-w-full items-center gap-2 rounded-full border border-dracula-green/25 bg-dracula-green/10 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-widest text-dracula-green sm:mb-7 sm:text-xs">
+              <div className="mb-3 inline-flex max-w-full items-center gap-2 rounded-full border border-dracula-green/25 bg-dracula-green/10 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-widest text-dracula-green sm:mb-4 sm:text-xs">
                 <CheckCircle2 className="h-3.5 w-3.5" />
                 <span className="truncate">{t.common.available}</span>
               </div>
 
-              <h1 className="max-w-3xl text-3xl font-semibold leading-[1.08] tracking-tight text-dracula-fg sm:text-5xl lg:text-6xl">
+              <h1 className="text-[clamp(1.6rem,4vw,3.25rem)] font-semibold leading-[1.1] tracking-tight text-dracula-fg">
                 {t.hero.title}
               </h1>
 
-              <p className="mt-5 max-w-2xl text-sm leading-7 text-dracula-comment sm:mt-6 sm:text-lg sm:leading-8">
+              <p className="mt-3 max-w-xl text-[clamp(0.78rem,1.3vw,0.9rem)] leading-relaxed text-dracula-comment sm:mt-4">
                 {t.hero.subtitle}
               </p>
-              <div className="mt-7 grid gap-3 sm:mt-9 sm:flex sm:flex-wrap">
+              <div className="mt-5 grid gap-3 sm:flex sm:flex-wrap">
                 <Link
                   href="/projects"
                   className="inline-flex items-center justify-center gap-2 rounded-xl bg-dracula-purple px-5 py-3 text-sm font-semibold text-dracula-bg shadow-lg shadow-dracula-purple/20 transition-transform hover:-translate-y-0.5"
@@ -274,36 +269,29 @@ export default function HomePage() {
             >
               <div className="absolute -inset-4 rounded-[28px] bg-dracula-surface/35 blur-2xl sm:-inset-6 sm:rounded-[32px]" />
 
-              <div className="relative flex items-center justify-between rounded-2xl border border-dracula-card/80 bg-dracula-surface/80 p-4 shadow-2xl shadow-black/25 backdrop-blur sm:p-5">
-                <div className="flex items-center gap-3">
-                  <Image
-                    src="https://github.com/emanuelVINI01.png"
-                    alt="emanuelVINI"
-                    width={48}
-                    height={48}
-                    unoptimized
-                    className="rounded-xl border border-dracula-purple/40"
-                  />
-                  <div>
-                    <div className="text-sm font-semibold text-dracula-fg">emanuelVINI</div>
-                    <div className="text-xs text-dracula-comment">emanuelVINI01</div>
-                  </div>
-                </div>
-                <span className="rounded-full border border-dracula-green/25 bg-dracula-green/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-widest text-dracula-green">
-                  {t.common.online}
-                </span>
-              </div>
-
+              
               <div className="relative grid grid-cols-3 gap-2 sm:gap-3">
-                {stats.map((stat) => (
-                  <div key={stat.label} className="min-w-0 rounded-xl border border-dracula-card/70 bg-dracula-surface/75 p-3 shadow-lg shadow-black/15 sm:p-4">
-                    <div className="truncate text-[9px] font-semibold uppercase tracking-widest text-dracula-comment sm:text-[10px]">
-                      {stat.label}
+                {stats.map((stat, idx) => {
+                  const icons = [
+                    <div key="gh" className="flex h-6 w-6 items-center justify-center rounded-md border border-white/5 bg-[#25252b] text-dracula-fg shadow-[0_0_10px_rgba(255,255,255,0.05)]"><SiGithub className="h-3.5 w-3.5" /></div>,
+                    <div key="pr" className="flex h-6 w-6 items-center justify-center rounded-md border border-dracula-purple/20 bg-[#25252b] text-dracula-purple shadow-[0_0_10px_rgba(189,147,249,0.15)]"><SiPrisma className="h-3.5 w-3.5" /></div>,
+                    <div key="nx" className="flex h-6 w-6 items-center justify-center rounded-md border border-white/10 bg-[#25252b] text-dracula-fg shadow-[0_0_10px_rgba(255,255,255,0.1)]"><SiNextdotjs className="h-3.5 w-3.5" /></div>,
+                  ];
+                  return (
+                    <div key={stat.label} className="group min-w-0 rounded-[14px] border border-white/5 bg-[#1e1e24] p-3 shadow-lg shadow-black/20 transition-all hover:bg-[#23232a] sm:p-4 flex flex-col justify-between">
+                      <div className="flex items-center justify-between mb-2">
+                        {icons[idx]}
+                        <div className="text-base font-semibold text-dracula-fg sm:text-lg">{stat.value}</div>
+                      </div>
+                      <div className="truncate text-[9px] font-semibold uppercase tracking-wider text-dracula-comment">
+                        {stat.label}
+                      </div>
+                      <div className="mt-1.5 line-clamp-2 text-[9px] leading-relaxed text-dracula-comment/70 sm:text-[10px]">
+                        {stat.detail}
+                      </div>
                     </div>
-                    <div className="mt-2 text-base font-semibold text-dracula-fg sm:text-xl">{stat.value}</div>
-                    <div className="mt-1 line-clamp-3 text-[10px] leading-relaxed text-dracula-comment sm:text-xs">{stat.detail}</div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
 
               <CommandTerminal
@@ -316,6 +304,165 @@ export default function HomePage() {
                 className="relative"
               />
             </motion.div>
+          </section>
+
+          {/* ABOUT ME SECTION */}
+          <section id="about" className="story-section-flat scroll-mt-20 border-y border-dracula-card/60">
+            <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-24">
+              <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.96 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, margin: '-70px' }}
+                  transition={{ duration: 0.45 }}
+                  className="relative mx-auto w-full max-w-md lg:mx-0"
+                >
+<div className="relative flex flex-col rounded-[20px] border border-[#3a3a44] bg-gradient-to-br from-[#1c1c21] to-[#121214] shadow-2xl shadow-black/60 overflow-hidden">
+                <div className="absolute inset-0 opacity-[0.25]" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.4) 1px, transparent 0)', backgroundSize: '8px 8px' }} />
+                
+                <div className="relative z-10 p-5 pb-16 sm:pb-5 sm:pr-[40%]">
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="h-1.5 w-1.5 rounded-full bg-dracula-purple shadow-[0_0_8px_rgba(189,147,249,0.8)]" />
+                    <span className="text-[9px] font-bold uppercase tracking-[0.25em] text-dracula-purple drop-shadow-[0_0_8px_rgba(189,147,249,0.5)]">HIGH-TECH ENGINEER ID PROFILE</span>
+                  </div>
+
+                  <div className="flex items-start gap-4">
+                    <div className="relative shrink-0">
+                      <Image
+                        src="/profile.png"
+                        alt="Emanuel Vini – EmanuelMissena"
+                        width={48}
+                        height={48}
+                        unoptimized
+                        priority
+                        className="relative z-10 rounded-xl border border-white/10 shadow-lg"
+                      />
+                      <span className="absolute -bottom-1 -right-1 z-20 h-3 w-3 rounded-full border-2 border-[#1c1c21] bg-dracula-green" />
+                    </div>
+
+                    <div className="min-w-0">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="text-xl font-bold text-white tracking-tight">Emanuel Vini</span>
+                        <span className="rounded-md border border-dracula-purple/20 bg-dracula-purple/10 px-1.5 py-0.5 text-[9px] font-semibold tracking-wider text-dracula-purple">EmanuelMissena</span>
+                      </div>
+                      <div className="mt-1 text-xs text-dracula-comment font-medium tracking-wide">Full-stack · 16 anos</div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div className="relative z-30 mt-auto border-t border-white/5 bg-black/40 backdrop-blur-md p-3 px-4 flex flex-wrap items-center justify-between gap-4">
+                  <div className="flex items-center gap-2">
+                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-dracula-orange/10 border border-dracula-orange/20">
+                      <span className="text-[10px] font-bold text-dracula-orange">Rs</span>
+                    </div>
+                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-dracula-fg/5 border border-dracula-fg/10">
+                      <span className="text-[10px] font-bold text-dracula-fg">Nx</span>
+                    </div>
+                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-dracula-purple/10 border border-dracula-purple/20">
+                      <span className="text-[10px] font-bold text-dracula-purple">Pr</span>
+                    </div>
+                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-dracula-pink/10 border border-dracula-pink/20">
+                      <span className="text-[10px] font-bold text-dracula-pink">Jv</span>
+                    </div>
+                  </div>
+                  
+                  <div className="flex flex-col items-end">
+                     <div className="flex items-center gap-2 text-[9px] font-bold uppercase tracking-widest">
+                       <span className="text-dracula-comment">LOW-LEVEL</span>
+                       <span className="w-12 h-[1px] bg-gradient-to-r from-dracula-comment to-dracula-green opacity-50" />
+                       <span className="text-dracula-green">NZON-LEVEL</span>
+                     </div>
+                     <div className="text-[7px] text-dracula-comment/60 font-mono mt-1 tracking-wider">CPU: 206...192GHZ // memory status ...</div>
+                  </div>
+                </div>
+
+
+                {/*
+                <div className="relative w-full aspect-[4/3] border-t border-white/5">
+                  <Image
+                    src="/profile.png"
+                    alt="Emanuel Vini"
+                    fill
+                    className="object-cover object-top"
+                    unoptimized
+                  />
+                </div> */}
+              </div>
+            </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-70px' }}
+                  transition={{ duration: 0.45, delay: 0.1 }}
+                >
+                  <div className="mb-3 text-xs font-semibold uppercase tracking-widest text-dracula-purple">
+                    {(t as any).aboutMe?.label || 'Quem sou eu'}
+                  </div>
+                  <h2 className="text-3xl font-semibold tracking-tight text-dracula-fg sm:text-4xl">
+                    {(t as any).aboutMe?.title || 'Um pouco sobre Emanuel Vini'}
+                  </h2>
+                  <p className="mt-4 text-lg text-dracula-comment">
+                    {(t as any).aboutMe?.subtitle || 'Conheça mais sobre minha origem e o que me motiva.'}
+                  </p>
+                  
+                  <div className="mt-8 space-y-5 text-sm leading-7 text-dracula-fg/80 sm:text-base sm:leading-8">
+                    <p>
+                      {(t as any).aboutMe?.p1 || 'Olá! Sou Emanuel Vini (também conhecido como Emanuel Missena). Nasci no Brasil e, desde muito cedo, fui fascinado por como as coisas funcionam por trás das telas. Aos 10 anos, eu já estava administrando servidores e tentando entender linhas de comando.'}
+                    </p>
+                    <p>
+                      {(t as any).aboutMe?.p2 || 'O que começou com jogos e servidores logo evoluiu para uma paixão por resolver problemas complexos. Gosto de criar soluções que são tanto robustas no backend quanto elegantes no frontend, sempre com um toque humano e foco na experiência do usuário.'}
+                    </p>
+                  </div>
+                </motion.div>
+              </div>
+            </div>
+          </section>
+
+          {/* SKILLS SECTION */}
+          <section id="skills" className="story-section-flat-deep scroll-mt-20 border-b border-dracula-card/60">
+            <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-24">
+              <div className="mb-12 max-w-3xl">
+                <div className="mb-3 text-xs font-semibold uppercase tracking-widest text-dracula-pink">
+                  {(t as any).skills?.label || 'Habilidades'}
+                </div>
+                <h2 className="text-3xl font-semibold tracking-tight text-dracula-fg sm:text-4xl">
+                  {(t as any).skills?.title || 'O que eu domino'}
+                </h2>
+                <p className="mt-4 text-sm leading-7 text-dracula-comment sm:text-base">
+                  {(t as any).skills?.subtitle || 'Um resumo das principais tecnologias e ferramentas que compõem meu dia a dia.'}
+                </p>
+              </div>
+
+              <div className="flex flex-wrap gap-3 sm:gap-4">
+                {[
+                  { name: 'Next.js', color: 'text-dracula-fg', bg: 'bg-dracula-fg/10', border: 'border-dracula-fg/20' },
+                  { name: 'Prisma', color: 'text-[#5a67d8]', bg: 'bg-[#5a67d8]/10', border: 'border-[#5a67d8]/20' },
+                  { name: 'AWS', color: 'text-[#ff9900]', bg: 'bg-[#ff9900]/10', border: 'border-[#ff9900]/20' },
+                  { name: 'AI Management & Claude', color: 'text-[#d97757]', bg: 'bg-[#d97757]/10', border: 'border-[#d97757]/20' },
+                  { name: 'GitHub', color: 'text-dracula-fg', bg: 'bg-dracula-fg/10', border: 'border-dracula-fg/20' },
+                  { name: 'Advanced Linux', color: 'text-dracula-yellow', bg: 'bg-dracula-yellow/10', border: 'border-dracula-yellow/20' },
+                  { name: 'Docker', color: 'text-[#2496ed]', bg: 'bg-[#2496ed]/10', border: 'border-[#2496ed]/20' },
+                  { name: 'Redis', color: 'text-[#dc382d]', bg: 'bg-[#dc382d]/10', border: 'border-[#dc382d]/20' },
+                  { name: 'Zod', color: 'text-[#3068b7]', bg: 'bg-[#3068b7]/10', border: 'border-[#3068b7]/20' },
+                  { name: 'Java', color: 'text-[#b07219]', bg: 'bg-[#b07219]/10', border: 'border-[#b07219]/20' },
+                  { name: 'Kotlin', color: 'text-[#a97bff]', bg: 'bg-[#a97bff]/10', border: 'border-[#a97bff]/20' },
+                ].map((skill, i) => (
+                  <motion.div
+                    key={skill.name}
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-50px' }}
+                    transition={{ duration: 0.3, delay: i * 0.05 }}
+                    whileHover={{ scale: 1.05 }}
+                    className={`inline-flex items-center gap-2 rounded-xl border ${skill.border} ${skill.bg} px-4 py-2.5 text-sm font-semibold shadow-sm backdrop-blur`}
+                  >
+                    <span className={skill.color}>{skill.name}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
           </section>
 
           <section

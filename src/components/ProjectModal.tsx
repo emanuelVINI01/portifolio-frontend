@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, X } from 'lucide-react';
+import { ExternalLink, Link2, Check, X } from 'lucide-react';
 import CommandTerminal, { type CommandTerminalLine } from '@/components/CommandTerminal';
 import { type Project } from '@/data/projects';
 import { useLanguage } from '@/context/LanguageContext';
@@ -14,6 +14,8 @@ interface ProjectModalProps {
 
 export default function ProjectModal({ project, onClose }: ProjectModalProps) {
   const { language } = useLanguage();
+  const [linkCopied, setLinkCopied] = useState(false);
+
   const repoName = project?.githubUrl.split('/').filter(Boolean).pop() ?? 'project';
   const runbookLines: CommandTerminalLine[] = project
     ? [
@@ -31,6 +33,18 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
         },
       ]
     : [];
+
+  const copyProjectLink = useCallback(async () => {
+    if (!project) return;
+    const url = `${window.location.origin}/projects?project=${project.id}`;
+    try {
+      await navigator.clipboard.writeText(url);
+      setLinkCopied(true);
+      setTimeout(() => setLinkCopied(false), 2000);
+    } catch {
+      setLinkCopied(false);
+    }
+  }, [project]);
 
   useEffect(() => {
     const handleKey = (event: KeyboardEvent) => {
@@ -91,14 +105,64 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                   {project.name}
                 </h2>
               </div>
-              <button
-                type="button"
-                onClick={onClose}
-                className="rounded-lg border border-dracula-card bg-dracula-card/30 p-2 text-dracula-comment transition-colors hover:border-dracula-red/50 hover:text-dracula-red"
-                aria-label={language === 'pt' ? 'Fechar detalhes do projeto' : 'Close project details'}
-              >
-                <X className="h-4 w-4" />
-              </button>
+              <div className="flex items-center gap-2">
+                {/* Copy deep-link button */}
+                <button
+                  type="button"
+                  onClick={copyProjectLink}
+                  title={language === 'pt' ? 'Copiar link direto para este projeto' : 'Copy direct link to this project'}
+                  className="group relative rounded-lg border border-dracula-card bg-dracula-card/30 p-2 text-dracula-comment transition-all"
+                  style={{}}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = project.color;
+                    e.currentTarget.style.borderColor = `${project.color}80`;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = 'var(--dracula-comment)';
+                    e.currentTarget.style.borderColor = 'var(--dracula-card)';
+                  }}
+                  aria-label={language === 'pt' ? 'Copiar link do projeto' : 'Copy project link'}
+                >
+                  <AnimatePresence mode="wait">
+                    {linkCopied ? (
+                      <motion.span
+                        key="check"
+                        initial={{ scale: 0.6, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        exit={{ scale: 0.6, opacity: 0 }}
+                        transition={{ duration: 0.15 }}
+                      >
+                        <Check className="h-4 w-4 text-dracula-green" />
+                      </motion.span>
+                    ) : (
+                      <motion.span
+                        key="link"
+                        initial={{ scale: 0.6, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        exit={{ scale: 0.6, opacity: 0 }}
+                        transition={{ duration: 0.15 }}
+                      >
+                        <Link2 className="h-4 w-4" />
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
+                  {/* Tooltip */}
+                  <span className="pointer-events-none absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-dracula-card px-2 py-1 text-[10px] font-semibold text-dracula-fg opacity-0 shadow-lg transition-opacity group-hover:opacity-100">
+                    {linkCopied
+                      ? (language === 'pt' ? 'Copiado!' : 'Copied!')
+                      : (language === 'pt' ? 'Copiar link' : 'Copy link')}
+                  </span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="rounded-lg border border-dracula-card bg-dracula-card/30 p-2 text-dracula-comment transition-colors hover:border-dracula-red/50 hover:text-dracula-red"
+                  aria-label={language === 'pt' ? 'Fechar detalhes do projeto' : 'Close project details'}
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
             </div>
 
             <div className="space-y-7 px-4 py-5 pb-[calc(env(safe-area-inset-bottom)+1.25rem)] sm:p-6">
@@ -173,7 +237,20 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                     href={project.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex min-w-0 items-center justify-center gap-2 rounded-lg border border-dracula-green/25 bg-dracula-green/10 px-4 py-2 text-sm font-semibold text-dracula-green transition-colors hover:border-dracula-green/60 hover:bg-dracula-green/15"
+                    className="inline-flex min-w-0 items-center justify-center gap-2 rounded-lg border px-4 py-2 text-sm font-semibold transition-colors"
+                    style={{
+                      borderColor: `${project.color}40`,
+                      backgroundColor: `${project.color}1a`,
+                      color: project.color,
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = `${project.color}26`;
+                      e.currentTarget.style.borderColor = `${project.color}99`;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = `${project.color}1a`;
+                      e.currentTarget.style.borderColor = `${project.color}40`;
+                    }}
                   >
                     {language === 'pt' ? 'Abrir app' : 'Open app'}
                     <ExternalLink className="h-4 w-4" />
@@ -183,7 +260,20 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex min-w-0 items-center justify-center gap-2 rounded-lg border border-dracula-cyan/25 bg-dracula-cyan/10 px-4 py-2 text-sm font-semibold text-dracula-cyan transition-colors hover:border-dracula-cyan/60 hover:bg-dracula-cyan/15"
+                  className="inline-flex min-w-0 items-center justify-center gap-2 rounded-lg border px-4 py-2 text-sm font-semibold transition-colors"
+                  style={{
+                    borderColor: `${project.color}40`,
+                    backgroundColor: `${project.color}1a`,
+                    color: project.color,
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = `${project.color}26`;
+                    e.currentTarget.style.borderColor = `${project.color}99`;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = `${project.color}1a`;
+                    e.currentTarget.style.borderColor = `${project.color}40`;
+                  }}
                 >
                   {language === 'pt' ? 'Abrir repositório' : 'Open repository'}
                   <ExternalLink className="h-4 w-4" />

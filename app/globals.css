@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 :root {
-  --dracula-bg: #282a36;
-  --dracula-surface: #343746;
-  --dracula-card: #44475a;
+  --dracula-bg: #111113;
+  --dracula-surface: #1e1e24;
+  --dracula-card: #25252b;
   --dracula-border: #44475a;
   --dracula-fg: #f8f8f2;
   --dracula-comment: #a7b0c8;

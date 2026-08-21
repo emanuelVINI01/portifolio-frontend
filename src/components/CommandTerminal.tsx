@@ -3,6 +3,7 @@
 import { useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { CheckCircle2, Copy, Terminal } from 'lucide-react';
+import { SiCloudflare, SiDiscord, SiGithub, SiLinux, SiNextdotjs, SiPrisma, SiReact, SiTypescript } from 'react-icons/si';
 import { useLanguage } from '@/context/LanguageContext';
 
 export type CommandTerminalLine =
@@ -75,7 +76,7 @@ export default function CommandTerminal({
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, margin: '-70px' }}
       transition={{ duration: 0.45, ease: 'easeOut' }}
-      className={`command-terminal relative w-full min-w-0 max-w-full overflow-hidden rounded-2xl border bg-dracula-surface/85 shadow-2xl shadow-black/25 backdrop-blur ${className}`}
+      className={`command-terminal relative w-full min-w-0 max-w-full overflow-hidden rounded-[18px] border bg-[#1e1e24] shadow-2xl shadow-black/40 backdrop-blur-xl ${className}`}
       style={{
         borderColor: `color-mix(in srgb, ${accent} 38%, rgba(68, 71, 90, 0.76))`,
         boxShadow: `0 24px 80px rgba(0,0,0,0.32), 0 0 44px color-mix(in srgb, ${accent} 16%, transparent)`,
@@ -165,16 +166,29 @@ export default function CommandTerminal({
           })}
         </div>
 
-        <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-dracula-card/60 pt-3">
-          <div className="inline-flex min-w-0 items-center gap-2 text-dracula-cyan">
-            <span className="h-2 w-2 rounded-full bg-dracula-cyan shadow-[0_0_12px_rgba(139,233,253,0.85)]" />
-            <span className="text-[10px] font-semibold uppercase tracking-widest">
-              {status ?? (language === 'pt' ? 'pronto para auditoria' : 'ready for audit')}
-            </span>
-          </div>
-          <div className="flex h-5 min-w-0 items-center gap-2 text-[10px] text-dracula-comment">
-            <span>{language === 'pt' ? 'aguardando evento' : 'awaiting event'}</span>
-            <span className="h-4 w-2 animate-[blink_1s_steps(2)_infinite] bg-dracula-cyan" />
+        <div className="mt-5 border-t border-white/5 pt-4">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="flex items-center gap-2 rounded-xl bg-black/20 p-1.5 border border-white/5">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg hover:bg-dracula-card/50 transition-colors text-dracula-cyan" title="React"><SiReact className="h-4 w-4" /></div>
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg hover:bg-dracula-card/50 transition-colors text-[#3178c6]" title="TypeScript"><SiTypescript className="h-4 w-4" /></div>
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg hover:bg-dracula-card/50 transition-colors text-dracula-fg" title="Next.js"><SiNextdotjs className="h-4 w-4" /></div>
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg hover:bg-dracula-card/50 transition-colors text-dracula-purple" title="Prisma"><SiPrisma className="h-4 w-4" /></div>
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg hover:bg-dracula-card/50 transition-colors text-dracula-yellow" title="Linux"><SiLinux className="h-4 w-4" /></div>
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg hover:bg-dracula-card/50 transition-colors text-dracula-orange" title="Cloudflare"><SiCloudflare className="h-4 w-4" /></div>
+            </div>
+            
+            <div className="flex flex-col items-end gap-1">
+              <div className="inline-flex items-center gap-2 text-dracula-cyan">
+                <span className="h-1.5 w-1.5 rounded-full bg-dracula-cyan shadow-[0_0_8px_rgba(139,233,253,0.85)]" />
+                <span className="text-[9px] font-bold uppercase tracking-widest">
+                  {status ?? (language === 'pt' ? 'sistema pronto' : 'system ready')}
+                </span>
+              </div>
+              <div className="flex h-4 items-center gap-1.5 text-[9px] text-dracula-comment uppercase tracking-widest font-semibold">
+                <span>{language === 'pt' ? 'aguardando' : 'awaiting'}</span>
+                <span className="h-3 w-1.5 animate-[blink_1s_steps(2)_infinite] bg-dracula-cyan" />
+              </div>
+            </div>
           </div>
         </div>
       </div>

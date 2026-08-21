@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 
-type SectionId = 'home' | 'story' | 'projects' | 'stack' | 'services';
+type SectionId = 'home' | 'about' | 'skills' | 'story' | 'projects' | 'stack' | 'services';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -25,29 +25,30 @@ export default function Navbar() {
   const pathname = usePathname();
 
   const sectionIds = useMemo<SectionId[]>(
-    () => ['home', 'story', 'services', 'stack', 'projects'],
+    () => ['home', 'about', 'skills', 'story', 'services', 'stack', 'projects'],
     [],
   );
 
   const navLinks = useMemo(
     () => [
+      { id: 'about' as SectionId, label: (t as any).aboutMe?.label || 'Quem sou eu', href: '/#about', icon: BookOpenText },
+      { id: 'skills' as SectionId, label: (t as any).skills?.label || 'Habilidades', href: '/#skills', icon: Orbit },
       { id: 'story' as SectionId, label: t.nav.story, href: '/#story', icon: BookOpenText },
       { id: 'services' as SectionId, label: t.nav.services, href: '/#services', icon: BriefcaseBusiness },
-      { id: 'stack' as SectionId, label: t.nav.stack, href: '/#stack', icon: Orbit },
       { id: 'projects' as SectionId, label: t.nav.projects, href: '/projects', icon: Layers },
     ],
-    [t.nav.projects, t.nav.services, t.nav.stack, t.nav.story],
+    [t, t.nav.projects, t.nav.services, t.nav.story],
   );
 
   const mobileNavLinks = useMemo(
     () => [
       { id: 'home' as SectionId, label: t.nav.home, href: '/#home', icon: Home },
+      { id: 'about' as SectionId, label: (t as any).aboutMe?.label || 'Sobre', href: '/#about', icon: BookOpenText },
+      { id: 'skills' as SectionId, label: (t as any).skills?.label || 'Tech', href: '/#skills', icon: Orbit },
       { id: 'story' as SectionId, label: t.nav.story, href: '/#story', icon: BookOpenText },
       { id: 'projects' as SectionId, label: t.nav.projects, href: '/projects', icon: Layers },
-      { id: 'stack' as SectionId, label: t.nav.stack, href: '/#stack', icon: Orbit },
-      { id: 'services' as SectionId, label: t.nav.services, href: '/#services', icon: BriefcaseBusiness },
     ],
-    [t.nav.home, t.nav.projects, t.nav.services, t.nav.stack, t.nav.story],
+    [t, t.nav.home, t.nav.projects, t.nav.story],
   );
 
   useEffect(() => {

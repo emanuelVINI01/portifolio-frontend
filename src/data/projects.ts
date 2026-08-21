@@ -3,7 +3,8 @@ import { Language } from '@/i18n/dictionaries';
 export type ProjectCategory =
   | 'Financial Systems'
   | 'Developer Tools'
-  | 'Web Products';
+  | 'Web Products'
+  | 'Automation & Bots';
 
 export type BadgeType =
   | 'Transactional'
@@ -18,7 +19,13 @@ export type BadgeType =
   | 'File Upload'
   | 'Utility'
   | 'Portfolio'
-  | 'TypeScript';
+  | 'TypeScript'
+  | 'AI'
+  | 'Discord Bot'
+  | 'Browser Extension'
+  | 'Java'
+  | 'Electron'
+  | 'Legacy';
 
 export interface Project {
   id: string;
@@ -31,6 +38,7 @@ export interface Project {
   glowColor: string;
   githubUrl: string;
   liveUrl?: string;
+  images?: string[];
   badges: BadgeType[];
   highlights: { label: string; value: string }[];
   year?: number;
@@ -39,26 +47,27 @@ export interface Project {
 
 const projectsPt: Project[] = [
   {
-    id: 'transactional-wallet-ledger',
-    name: 'Transactional Wallet Ledger',
-    shortDesc: 'API e dashboard para carteira transacional com ledger auditável.',
+    id: 'simple-bank',
+    name: 'Simple Bank',
+    shortDesc: 'Demo de banco mobile-first com dupla entrada contábil e IA integrada.',
     longDesc:
-      'Projeto full-stack integrando Fastify API e dashboard em Next.js para modelagem de uma carteira transacional. Contempla cadastro, autenticação estrita, chaves de pagamento, resolução de destinatários, transferências e histórico rigoroso de débito/crédito. O foco arquitetural reside em garantir consistência transacional (ACID), validação via Zod, contratos bem definidos de API e uma interface orientada à operação.',
+      'Aplicação full-stack mobile-first que simula um ledger bancário completo. Implementa autenticação via Auth.js v5, rotas de API protegidas, transferências com chave UUID e QR code, geração de PDF autenticado de recibos e assistente de IA via Google Gemini. O design segue a paleta Dracula com painéis glassmorphism e transições Framer Motion. Todos os débitos e créditos são gravados atomicamente em transação Prisma.',
     category: 'Financial Systems',
-    tech: ['Fastify', 'Next.js', 'TypeScript', 'PostgreSQL', 'Prisma', 'Zod', 'Playwright'],
-    color: 'var(--dracula-cyan)',
-    glowColor: 'rgba(139, 233, 253, 0.22)',
-    githubUrl: 'https://github.com/emanuelVINI01/transactional-wallet-ledger',
-    liveUrl: 'https://transactional-wallet-ledger.emanuelvini.dev',
-    badges: ['Transactional', 'Auth', 'API', 'Dashboard', 'TypeScript'],
+    tech: ['Next.js', 'Auth.js', 'Prisma', 'PostgreSQL', 'Google Gemini', 'TypeScript', 'Tailwind CSS'],
+    color: '#10b981',
+    glowColor: 'rgba(16, 185, 129, 0.25)',
+    githubUrl: 'https://github.com/emanuelVINI01/simple-bank',
+    liveUrl: 'https://bank.emanuelvini.dev',
+    images: ['/projects/simple-bank/image1.png', '/projects/simple-bank/image2.png', '/projects/simple-bank/image3.png', '/projects/simple-bank/image4.png'],
+    badges: ['Transactional', 'Auth', 'AI', 'Dashboard', 'TypeScript'],
     highlights: [
-      { label: 'Arquitetura', value: 'Fastify API + Next.js dashboard' },
-      { label: 'Consistência', value: 'Débito/crédito em transação Prisma' },
-      { label: 'Segurança', value: 'Sessão Bearer + criptografia com bcrypt' },
-      { label: 'Qualidade', value: 'Schemas Zod + testes automatizados (API/E2E)' },
+      { label: 'Ledger', value: 'Dupla entrada em transação Prisma atômica' },
+      { label: 'IA', value: 'Assistente bancário via Google Gemini' },
+      { label: 'Chaves PIX', value: 'UUID + QR Code por chave de recebimento' },
+      { label: 'PDF', value: 'Recibos gerados em endpoint autenticado' },
     ],
     year: 2026,
-    updatedAt: '2026-05-07',
+    updatedAt: '2026-06-01',
   },
   {
     id: 'apiflash',
@@ -68,8 +77,8 @@ const projectsPt: Project[] = [
       'Ferramenta projetada sob a filosofia dark-first para emissão de requisições HTTP (GET, POST, PUT, DELETE) com suporte a cabeçalhos avançados, editor de corpo de requisição e visualização instantânea de respostas em JSON. Desenvolvido para prover máxima velocidade e mínima fricção, otimizando o fluxo de trabalho de desenvolvedores.',
     category: 'Developer Tools',
     tech: ['Next.js', 'TypeScript', 'React', 'Tailwind CSS'],
-    color: 'var(--dracula-green)',
-    glowColor: 'rgba(80, 250, 123, 0.2)',
+    color: '#eab308',
+    glowColor: 'rgba(234, 179, 8, 0.25)',
     githubUrl: 'https://github.com/emanuelVINI01/api-flash',
     liveUrl: 'https://apiflash.emanuelvini.dev',
     badges: ['API', 'Speed Optimized', 'Open Source', 'TypeScript'],
@@ -81,6 +90,48 @@ const projectsPt: Project[] = [
     ],
     year: 2026,
     updatedAt: '2026-03-29',
+  },
+  {
+    id: 'browia',
+    name: 'Browia',
+    shortDesc: 'Extensão de navegador com agente IA autônomo via MCP.',
+    longDesc:
+      'Extensão Manifest V3 que acopla um painel lateral onde um agente de IA autônomo opera a aba ativa em tempo real usando o Model Context Protocol (MCP). Suporta OpenAI, Google Gemini (famílias 1.5 a 3.5) e instâncias Ollama locais. O agente executa até 12 iterações autônomas com divisão inteligente entre ferramentas seguras (leitura, inspeção DOM) e sensíveis (clique, digitação, navegação), que aguardam aprovação do usuário. Inclui bypass dinâmico de CORS para Ollama.',
+    category: 'Developer Tools',
+    tech: ['TypeScript', 'React', 'Manifest V3', 'MCP', 'Ollama', 'OpenAI', 'Google Gemini'],
+    color: '#c084fc',
+    glowColor: 'rgba(192, 132, 252, 0.25)',
+    githubUrl: 'https://github.com/emanuelVINI01/browia',
+    badges: ['AI', 'Browser Extension', 'Open Source', 'TypeScript'],
+    highlights: [
+      { label: 'Providers', value: 'OpenAI, Gemini (1.5-3.5) e Ollama local' },
+      { label: 'Autonomia', value: 'Loop MCP com até 12 iterações sem interrupção' },
+      { label: 'Segurança', value: 'Ferramentas sensíveis requerem aprovação explícita' },
+      { label: 'Bypass CORS', value: 'declarativeNetRequest para Ollama local' },
+    ],
+    year: 2026,
+    updatedAt: '2026-04-01',
+  },
+  {
+    id: 'lowvia',
+    name: 'Lowvia',
+    shortDesc: 'Assistente IA desktop com Deep Research autônomo e suporte offline.',
+    longDesc:
+      'Aplicação desktop (Electron) com assistente de IA que roda modelos locais via Ollama e se conecta ao OpenRouter para modelos de ponta como GPT-4 e Claude 3. Possui modo Deep Research autônomo que formula buscas na web, navega páginas encontradas, faz scraping e cruza dados antes de responder. Renderiza Markdown avançado, blocos de código com syntax highlight (Highlight.js) e expressões matemáticas (KaTeX). Exporta relatórios em PDF.',
+    category: 'Developer Tools',
+    tech: ['Electron', 'React', 'Vite', 'Tailwind CSS', 'Framer Motion', 'Ollama', 'OpenRouter'],
+    color: 'var(--dracula-cyan)',
+    glowColor: 'rgba(139, 233, 253, 0.2)',
+    githubUrl: 'https://github.com/emanuelVINI01/lowvia',
+    badges: ['AI', 'Electron', 'Open Source', 'TypeScript'],
+    highlights: [
+      { label: 'Offline', value: 'Modelos locais via Ollama sem nuvem' },
+      { label: 'Deep Research', value: 'Pesquisa web autônoma com scraping e cruzamento de dados' },
+      { label: 'Renderização', value: 'Markdown, código, KaTeX e PDF export' },
+      { label: 'Providers', value: 'Ollama + OpenRouter (GPT-4, Claude 3)' },
+    ],
+    year: 2026,
+    updatedAt: '2026-05-01',
   },
   {
     id: 'snippetvault',
@@ -112,8 +163,8 @@ const projectsPt: Project[] = [
       'Aplicação de alta performance para treinamento de digitação. Calcula em tempo real métricas de WPM (Words Per Minute) e precisão, mantendo um histórico detalhado de performance, geração de gráficos evolutivos e estruturação de um ranking global. Emprega infraestrutura em PostgreSQL e uma interface limpa, responsiva e direta.',
     category: 'Web Products',
     tech: ['Next.js', 'Prisma', 'PostgreSQL', 'Recharts', 'NextAuth', 'Zod'],
-    color: 'var(--dracula-cyan)',
-    glowColor: 'rgba(139, 233, 253, 0.2)',
+    color: '#38bdf8',
+    glowColor: 'rgba(56, 189, 248, 0.25)',
     githubUrl: 'https://github.com/emanuelVINI01/typedash',
     liveUrl: 'https://typedash.emanuelvini.dev',
     badges: ['Real-Time', 'Dashboard', 'Open Source', 'TypeScript'],
@@ -127,25 +178,67 @@ const projectsPt: Project[] = [
     updatedAt: '2026-03-29',
   },
   {
-    id: 'mtx-upload',
-    name: 'MTX-Upload',
-    shortDesc: 'Gerenciador estruturado de arquivos com suporte a compartilhamento.',
+    id: 'ryzen-shop-bot',
+    name: 'RyzenShopBot',
+    shortDesc: 'Bot Discord completo com economia, moderação e sistema de tickets.',
     longDesc:
-      'Aplicação corporativa para gerenciamento seguro de arquivos. Suporta processos de upload assíncrono, manipulação de metadados, exclusão segura e geração de links para compartilhamento externo. Desenvolvido para demonstrar fluência em operações de I/O em ambientes baseados em React e Next.js.',
-    category: 'Web Products',
-    tech: ['Next.js', 'Prisma', 'TypeScript'],
-    color: 'var(--dracula-yellow)',
-    glowColor: 'rgba(241, 250, 140, 0.18)',
-    githubUrl: 'https://github.com/emanuelVINI01/MTX-Upload',
-    liveUrl: 'https://mtx-upload.emanuelvini.dev',
-    badges: ['File Upload', 'Dashboard', 'Open Source', 'TypeScript'],
+      'Bot oficial do servidor Discord RyzenShop desenvolvido em TypeScript com discord.js. Conta com sistema de tickets interativo com select menus e categorias (Financeiro, Ativação de Nitro, Outros), motor de economia completo (carteira, banco, trabalho com cooldown, recompensa diária, loja e leaderboard), proteção anti-invite, rotador de presença dinâmico e sugestão fuzzy de comandos por similaridade para lidar com erros de digitação.',
+    category: 'Automation & Bots',
+    tech: ['TypeScript', 'discord.js', 'Node.js'],
+    color: 'var(--dracula-purple)',
+    glowColor: 'rgba(189, 147, 249, 0.2)',
+    githubUrl: 'https://github.com/emanuelVINI01/RyzenShopBot',
+    badges: ['Discord Bot', 'Open Source', 'TypeScript'],
     highlights: [
-      { label: 'Gestão', value: 'Upload, renomeação e exclusão lógica' },
-      { label: 'Distribuição', value: 'Geração de links seguros para download' },
-      { label: 'Stack', value: 'Implementação com Next.js e Prisma' },
+      { label: 'Tickets', value: 'Painel com select menus e categorias dinâmicas' },
+      { label: 'Economia', value: 'Carteira, banco, trabalho, daily e leaderboard' },
+      { label: 'Fuzzy CLI', value: 'Sugestão de comandos por similaridade' },
+      { label: 'Anti-Invite', value: 'Proteção automática contra links Discord' },
     ],
-    year: 2026,
-    updatedAt: '2026-03-16',
+    year: 2023,
+    updatedAt: '2023-10-01',
+  },
+  {
+    id: 'ryzen-hosting',
+    name: 'RyzenHosting Site',
+    shortDesc: 'Plataforma institucional de hosting com tabelas de preço e animações.',
+    longDesc:
+      'Plataforma web institucional criada para um serviço de hosting de games e infraestrutura cloud. Exibe soluções de hosting (Minecraft, VPS Gaming, Dedicados, Web, Apps) com tabelas de preços dinâmicas, avaliações de clientes e destaques interativos. Marco histórico: construído em 2022 aos 12 anos de idade, preservado como evidência de iniciativa precoce com Next.js, React e TypeScript.',
+    category: 'Web Products',
+    tech: ['Next.js', 'React', 'TypeScript', 'Chakra UI', 'Framer Motion'],
+    color: 'var(--dracula-orange)',
+    glowColor: 'rgba(255, 184, 108, 0.18)',
+    githubUrl: 'https://github.com/emanuelVINI01/ryzen-site',
+    badges: ['Legacy', 'Open Source', 'TypeScript'],
+    highlights: [
+      { label: 'Contexto', value: 'Primeiro projeto Next.js — construído aos 12 anos' },
+      { label: 'Produto', value: 'Plataforma institucional de hosting de games' },
+      { label: 'Stack', value: 'Next.js, Chakra UI e Framer Motion' },
+      { label: 'Preservação', value: 'Evidência pública de evolução técnica' },
+    ],
+    year: 2022,
+    updatedAt: '2022-06-01',
+  },
+  {
+    id: 'dv-duels',
+    name: 'DVDuels',
+    shortDesc: 'Plugin Minecraft de duelos 1v1 com stats persistentes em MySQL.',
+    longDesc:
+      'Plugin customizável de duelos 1v1 para servidores Spigot/Paper 1.19.4. Desenvolvido como desafio prático de admissão para a DevRoom (2022-2023). Implementa isolamento de visibilidade de arena com `Player#hidePlayer`, sistema de kits configuráveis via YAML, contagem regressiva com travamento de movimento, persistência de stats em MySQL com HikariCP e cache Caffeine, e restauração automática de localização ao fim da partida.',
+    category: 'Automation & Bots',
+    tech: ['Java', 'Spigot API', 'MySQL', 'HikariCP', 'Caffeine', 'Maven'],
+    color: 'var(--dracula-orange)',
+    glowColor: 'rgba(255, 184, 108, 0.18)',
+    githubUrl: 'https://github.com/emanuelVINI01/dv-duels',
+    badges: ['Java', 'Legacy', 'Open Source'],
+    highlights: [
+      { label: 'Isolamento', value: 'Invisibilidade de arena com hidePlayer API' },
+      { label: 'Persistência', value: 'MySQL + HikariCP + Caffeine cache' },
+      { label: 'Kits', value: 'Sistema customizável por YAML' },
+      { label: 'Contexto', value: 'Trial DevRoom — 2022/2023' },
+    ],
+    year: 2022,
+    updatedAt: '2023-01-01',
   },
   {
     id: 'portifolio-frontend',
@@ -168,50 +261,31 @@ const projectsPt: Project[] = [
     year: 2026,
     updatedAt: '2026-03-29',
   },
-  {
-    id: 'random-uuid',
-    name: 'Random UUID',
-    shortDesc: 'Utilitário em TypeScript para geração de identificadores universais.',
-    longDesc:
-      'Módulo minimalista projetado para aumentar a produtividade no ecossistema de desenvolvimento, fornecendo geração padronizada de UUIDs. Integrado ao catálogo como uma prova de conceito para micro-ferramentas otimizadas, reutilizáveis e totalmente dissociadas de grandes infraestruturas.',
-    category: 'Developer Tools',
-    tech: ['TypeScript'],
-    color: 'var(--dracula-orange)',
-    glowColor: 'rgba(255, 184, 108, 0.18)',
-    githubUrl: 'https://github.com/emanuelVINI01/random-uuid',
-    liveUrl: 'https://random-uuid.emanuelvini.dev',
-    badges: ['Utility', 'Open Source', 'TypeScript'],
-    highlights: [
-      { label: 'Escopo', value: 'Micro-utilitário de infraestrutura de desenvolvimento' },
-      { label: 'Core', value: 'Implementação 100% em TypeScript' },
-    ],
-    year: 2023,
-    updatedAt: '2023-09-14',
-  },
 ];
 
 const projectsEn: Project[] = [
   {
-    id: 'transactional-wallet-ledger',
-    name: 'Transactional Wallet Ledger',
-    shortDesc: 'API and dashboard for a transactional wallet with an auditable ledger.',
+    id: 'simple-bank',
+    name: 'Simple Bank',
+    shortDesc: 'Mobile-first banking ledger demo with double-entry bookkeeping and AI assistant.',
     longDesc:
-      'Full-stack project integrating a Fastify API and a Next.js dashboard to model a transactional wallet. Features user registration, strict authentication, payment keys, payee resolution, fund transfers, and a rigorous debit/credit history. The architectural focus lies in ensuring transactional consistency (ACID), schema validation via Zod, well-defined API contracts, and a clear operation interface.',
+      'Full-stack, single-repository Next.js application that simulates a mobile banking ledger. Demonstrates real-world patterns for authentication via Auth.js v5, protected API routes, double-entry bookkeeping, idempotent UUID-based transfers with QR code payment keys, authenticated PDF receipt generation, and AI-powered transaction intelligence via Google Gemini. The UI follows the Dracula colour palette with glassmorphism panels and Framer Motion page transitions.',
     category: 'Financial Systems',
-    tech: ['Fastify', 'Next.js', 'TypeScript', 'PostgreSQL', 'Prisma', 'Zod', 'Playwright'],
-    color: 'var(--dracula-cyan)',
-    glowColor: 'rgba(139, 233, 253, 0.22)',
-    githubUrl: 'https://github.com/emanuelVINI01/transactional-wallet-ledger',
-    liveUrl: 'https://transactional-wallet-ledger.emanuelvini.dev',
-    badges: ['Transactional', 'Auth', 'API', 'Dashboard', 'TypeScript'],
+    tech: ['Next.js', 'Auth.js', 'Prisma', 'PostgreSQL', 'Google Gemini', 'TypeScript', 'Tailwind CSS'],
+    color: '#10b981',
+    glowColor: 'rgba(16, 185, 129, 0.25)',
+    githubUrl: 'https://github.com/emanuelVINI01/simple-bank',
+    liveUrl: 'https://bank.emanuelvini.dev',
+    images: ['/projects/simple-bank/image1.png', '/projects/simple-bank/image2.png', '/projects/simple-bank/image3.png', '/projects/simple-bank/image4.png'],
+    badges: ['Transactional', 'Auth', 'AI', 'Dashboard', 'TypeScript'],
     highlights: [
-      { label: 'Architecture', value: 'Fastify API + Next.js dashboard' },
-      { label: 'Consistency', value: 'Debit/credit wrapped in Prisma transactions' },
-      { label: 'Security', value: 'Bearer sessions + bcrypt encryption' },
-      { label: 'Quality', value: 'Zod schemas + Automated testing (API/E2E)' },
+      { label: 'Ledger', value: 'Double-entry wrapped in atomic Prisma transaction' },
+      { label: 'AI', value: 'Banking assistant powered by Google Gemini' },
+      { label: 'Payment Keys', value: 'UUID-based keys with per-key QR codes' },
+      { label: 'PDF', value: 'Authenticated receipt generation endpoint' },
     ],
     year: 2026,
-    updatedAt: '2026-05-07',
+    updatedAt: '2026-06-01',
   },
   {
     id: 'apiflash',
@@ -221,8 +295,8 @@ const projectsEn: Project[] = [
       'A dark-first tool engineered for issuing HTTP requests (GET, POST, PUT, DELETE) featuring advanced header support, a request body editor, and instantaneous JSON response visualization. Designed to provide maximum speed and minimal friction, heavily optimizing the developer workflow.',
     category: 'Developer Tools',
     tech: ['Next.js', 'TypeScript', 'React', 'Tailwind CSS'],
-    color: 'var(--dracula-green)',
-    glowColor: 'rgba(80, 250, 123, 0.2)',
+    color: '#eab308',
+    glowColor: 'rgba(234, 179, 8, 0.25)',
     githubUrl: 'https://github.com/emanuelVINI01/api-flash',
     liveUrl: 'https://apiflash.emanuelvini.dev',
     badges: ['API', 'Speed Optimized', 'Open Source', 'TypeScript'],
@@ -234,6 +308,48 @@ const projectsEn: Project[] = [
     ],
     year: 2026,
     updatedAt: '2026-03-29',
+  },
+  {
+    id: 'browia',
+    name: 'Browia',
+    shortDesc: 'Browser extension with an autonomous AI agent operating via MCP.',
+    longDesc:
+      'Manifest V3 browser extension that docks a side panel where an autonomous AI agent operates the active tab in real time using the Model Context Protocol (MCP). Supports OpenAI, Google Gemini (families 1.5 to 3.5), and local Ollama instances. The agent runs up to 12 autonomous iterations with intelligent separation between safe tools (read/inspect) that run automatically and sensitive tools (click, type, navigate) that require user approval. Includes a dynamic CORS bypass for local Ollama via declarativeNetRequest.',
+    category: 'Developer Tools',
+    tech: ['TypeScript', 'React', 'Manifest V3', 'MCP', 'Ollama', 'OpenAI', 'Google Gemini'],
+    color: '#c084fc',
+    glowColor: 'rgba(192, 132, 252, 0.25)',
+    githubUrl: 'https://github.com/emanuelVINI01/browia',
+    badges: ['AI', 'Browser Extension', 'Open Source', 'TypeScript'],
+    highlights: [
+      { label: 'Providers', value: 'OpenAI, Gemini (1.5-3.5) and local Ollama' },
+      { label: 'Autonomy', value: 'MCP execution loop up to 12 uninterrupted iterations' },
+      { label: 'Safety', value: 'Sensitive tools require explicit user approval' },
+      { label: 'CORS Bypass', value: 'declarativeNetRequest for local Ollama' },
+    ],
+    year: 2026,
+    updatedAt: '2026-04-01',
+  },
+  {
+    id: 'lowvia',
+    name: 'Lowvia',
+    shortDesc: 'Desktop AI assistant with autonomous Deep Research and offline model support.',
+    longDesc:
+      'Electron desktop application featuring an AI assistant that runs local models via Ollama and connects to OpenRouter for state-of-the-art models like GPT-4 and Claude 3. Includes an autonomous Deep Research mode that formulates web searches, navigates found pages, scrapes content, and cross-references data before answering. Renders advanced Markdown, syntax-highlighted code blocks (Highlight.js), and mathematical expressions (KaTeX). Supports PDF report export.',
+    category: 'Developer Tools',
+    tech: ['Electron', 'React', 'Vite', 'Tailwind CSS', 'Framer Motion', 'Ollama', 'OpenRouter'],
+    color: 'var(--dracula-cyan)',
+    glowColor: 'rgba(139, 233, 253, 0.2)',
+    githubUrl: 'https://github.com/emanuelVINI01/lowvia',
+    badges: ['AI', 'Electron', 'Open Source', 'TypeScript'],
+    highlights: [
+      { label: 'Offline', value: 'Local models via Ollama — no cloud required' },
+      { label: 'Deep Research', value: 'Autonomous web research with scraping and cross-referencing' },
+      { label: 'Rendering', value: 'Markdown, code blocks, KaTeX and PDF export' },
+      { label: 'Providers', value: 'Ollama + OpenRouter (GPT-4, Claude 3)' },
+    ],
+    year: 2026,
+    updatedAt: '2026-05-01',
   },
   {
     id: 'snippetvault',
@@ -265,8 +381,8 @@ const projectsEn: Project[] = [
       'High-performance application for typing assessment. Computes WPM (Words Per Minute) and accuracy metrics in real-time, maintaining detailed performance history, generating evolutionary charts, and structuring a global leaderboard. Leverages PostgreSQL infrastructure alongside a clean, responsive, and direct interface.',
     category: 'Web Products',
     tech: ['Next.js', 'Prisma', 'PostgreSQL', 'Recharts', 'NextAuth', 'Zod'],
-    color: 'var(--dracula-cyan)',
-    glowColor: 'rgba(139, 233, 253, 0.2)',
+    color: '#38bdf8',
+    glowColor: 'rgba(56, 189, 248, 0.25)',
     githubUrl: 'https://github.com/emanuelVINI01/typedash',
     liveUrl: 'https://typedash.emanuelvini.dev',
     badges: ['Real-Time', 'Dashboard', 'Open Source', 'TypeScript'],
@@ -280,25 +396,67 @@ const projectsEn: Project[] = [
     updatedAt: '2026-03-29',
   },
   {
-    id: 'mtx-upload',
-    name: 'MTX-Upload',
-    shortDesc: 'Structured file manager supporting secure sharing.',
+    id: 'ryzen-shop-bot',
+    name: 'RyzenShopBot',
+    shortDesc: 'Full-featured Discord bot with economy engine, moderation, and ticket system.',
     longDesc:
-      'Corporate application for secure file management. Supports asynchronous upload processes, metadata manipulation, secure deletion, and generation of links for external sharing. Engineered to demonstrate fluency in I/O operations within React and Next.js environments.',
-    category: 'Web Products',
-    tech: ['Next.js', 'Prisma', 'TypeScript'],
-    color: 'var(--dracula-yellow)',
-    glowColor: 'rgba(241, 250, 140, 0.18)',
-    githubUrl: 'https://github.com/emanuelVINI01/MTX-Upload',
-    liveUrl: 'https://mtx-upload.emanuelvini.dev',
-    badges: ['File Upload', 'Dashboard', 'Open Source', 'TypeScript'],
+      'Official Discord bot for the RyzenShop server, built with TypeScript and discord.js. Features an interactive ticket system using select menus with categories (Financial, Nitro Activation, Others), a complete economy engine (wallet, bank, work with cooldown, daily reward, shop, leaderboard), automatic anti-invite protection, a dynamic presence rotator, and fuzzy command suggestions using similarity algorithms to handle typos gracefully.',
+    category: 'Automation & Bots',
+    tech: ['TypeScript', 'discord.js', 'Node.js'],
+    color: 'var(--dracula-purple)',
+    glowColor: 'rgba(189, 147, 249, 0.2)',
+    githubUrl: 'https://github.com/emanuelVINI01/RyzenShopBot',
+    badges: ['Discord Bot', 'Open Source', 'TypeScript'],
     highlights: [
-      { label: 'Management', value: 'Upload, renaming, and logical deletion' },
-      { label: 'Distribution', value: 'Secure download link generation' },
-      { label: 'Stack', value: 'Implementation using Next.js and Prisma' },
+      { label: 'Tickets', value: 'Interactive panel with dynamic select menu categories' },
+      { label: 'Economy', value: 'Wallet, bank, work, daily rewards and leaderboard' },
+      { label: 'Fuzzy CLI', value: 'Similarity-based command suggestions on typos' },
+      { label: 'Anti-Invite', value: 'Automatic Discord invite link protection' },
     ],
-    year: 2026,
-    updatedAt: '2026-03-16',
+    year: 2023,
+    updatedAt: '2023-10-01',
+  },
+  {
+    id: 'ryzen-hosting',
+    name: 'RyzenHosting Site',
+    shortDesc: 'Institutional hosting platform with dynamic pricing and interactive highlights.',
+    longDesc:
+      'Modern institutional web platform created for a game hosting and cloud infrastructure service. Showcases hosting solutions including Minecraft servers, VPS Gaming, Dedicated Servers, Web Hosting, and App deployment — with dynamic pricing tables, customer reviews, and interactive feature highlights. A historical milestone: originally built in 2022 at 12 years old, preserving the developer\'s earliest hands-on experience with Next.js, React, and TypeScript.',
+    category: 'Web Products',
+    tech: ['Next.js', 'React', 'TypeScript', 'Chakra UI', 'Framer Motion'],
+    color: 'var(--dracula-orange)',
+    glowColor: 'rgba(255, 184, 108, 0.18)',
+    githubUrl: 'https://github.com/emanuelVINI01/ryzen-site',
+    badges: ['Legacy', 'Open Source', 'TypeScript'],
+    highlights: [
+      { label: 'Context', value: 'First Next.js project — built at age 12' },
+      { label: 'Product', value: 'Game hosting institutional platform' },
+      { label: 'Stack', value: 'Next.js, Chakra UI and Framer Motion' },
+      { label: 'Preservation', value: 'Public evidence of technical evolution' },
+    ],
+    year: 2022,
+    updatedAt: '2022-06-01',
+  },
+  {
+    id: 'dv-duels',
+    name: 'DVDuels',
+    shortDesc: '1v1 Minecraft duel plugin with arena isolation and MySQL stat persistence.',
+    longDesc:
+      'Customizable 1v1 duel plugin built for Minecraft Spigot/Paper 1.19.4 servers. Developed as the practical admission challenge (trial) for DevRoom (2022-2023). Implements dynamic player visibility isolation via Player#hidePlayer, YAML-configurable kit system, ActionBar countdown with movement freeze, MySQL stats persistence powered by HikariCP connection pooling and Caffeine caching, and automatic location restoration upon duel completion.',
+    category: 'Automation & Bots',
+    tech: ['Java', 'Spigot API', 'MySQL', 'HikariCP', 'Caffeine', 'Maven'],
+    color: 'var(--dracula-orange)',
+    glowColor: 'rgba(255, 184, 108, 0.18)',
+    githubUrl: 'https://github.com/emanuelVINI01/dv-duels',
+    badges: ['Java', 'Legacy', 'Open Source'],
+    highlights: [
+      { label: 'Isolation', value: 'Arena visibility with hidePlayer API' },
+      { label: 'Persistence', value: 'MySQL + HikariCP + Caffeine cache' },
+      { label: 'Kits', value: 'YAML-configurable kit system' },
+      { label: 'Context', value: 'DevRoom trial project — 2022/2023' },
+    ],
+    year: 2022,
+    updatedAt: '2023-01-01',
   },
   {
     id: 'portifolio-frontend',
@@ -321,28 +479,7 @@ const projectsEn: Project[] = [
     year: 2026,
     updatedAt: '2026-03-29',
   },
-  {
-    id: 'random-uuid',
-    name: 'Random UUID',
-    shortDesc: 'TypeScript utility for universal identifier generation.',
-    longDesc:
-      'Minimalist module designed to increase productivity within the development ecosystem by providing standardized UUID generation. Integrated into the catalog as a proof of concept for optimized, reusable micro-tools completely decoupled from large infrastructures.',
-    category: 'Developer Tools',
-    tech: ['TypeScript'],
-    color: 'var(--dracula-orange)',
-    glowColor: 'rgba(255, 184, 108, 0.18)',
-    githubUrl: 'https://github.com/emanuelVINI01/random-uuid',
-    liveUrl: 'https://random-uuid.emanuelvini.dev',
-    badges: ['Utility', 'Open Source', 'TypeScript'],
-    highlights: [
-      { label: 'Scope', value: 'Development infrastructure micro-utility' },
-      { label: 'Core', value: '100% TypeScript implementation' },
-    ],
-    year: 2023,
-    updatedAt: '2023-09-14',
-  },
-];
-
+]
 export const getProjects = (lang: Language): Project[] => {
   return lang === 'pt' ? projectsPt : projectsEn;
 };
@@ -353,10 +490,12 @@ export const getCategories = (lang: Language): { key: ProjectCategory | 'all'; l
     { key: 'Financial Systems', label: 'Sistemas Financeiros', color: 'var(--dracula-cyan)' },
     { key: 'Developer Tools', label: 'Ferramentas de Desenvolvimento', color: 'var(--dracula-green)' },
     { key: 'Web Products', label: 'Produtos Web', color: 'var(--dracula-purple)' },
+    { key: 'Automation & Bots', label: 'Automação & Bots', color: 'var(--dracula-orange)' },
   ] : [
     { key: 'all', label: 'All', color: 'var(--dracula-purple)' },
     { key: 'Financial Systems', label: 'Financial Systems', color: 'var(--dracula-cyan)' },
     { key: 'Developer Tools', label: 'Developer Tools', color: 'var(--dracula-green)' },
     { key: 'Web Products', label: 'Web Products', color: 'var(--dracula-purple)' },
+    { key: 'Automation & Bots', label: 'Automation & Bots', color: 'var(--dracula-orange)' },
   ];
 };
