@@ -35,6 +35,9 @@ import ProjectModal from '@/components/ProjectModal';
 import ProjectPod from '@/components/ProjectPod';
 import { getProjects, type Project } from '@/data/projects';
 import { useLanguage } from '@/context/LanguageContext';
+import { Flag } from '@/components/ui/flag';
+import DepthIllustration from '@/components/ui/DepthIllustration';
+import { pick } from '@/i18n/dictionaries';
 import { SiCloudflare, SiDiscord, SiGithub, SiKotlin, SiLinux, SiNextdotjs, SiOvh, SiPrisma, SiTypescript } from 'react-icons/si';
 
 
@@ -91,6 +94,10 @@ export default function HomePage() {
   ];
   const commandPowerIcons = [DatabaseZap, Terminal, ShieldCheck, WalletCards];
   const timelineIcons = [Code2, GitCommitHorizontal, Server, Bot, DatabaseZap, BrainCircuit];
+  const getTimelineLinkLabel = (href: string) => {
+    if (href.includes('?tab=repositories')) return t.common.publicGithub;
+    return href.split('/').filter(Boolean).pop() ?? t.common.verifyOnGithub;
+  };
   const glossaryIcons = [Code2, Cpu, Server, WalletCards, Bot];
   const heroCommandLines: CommandTerminalLine[] = [
     {
@@ -100,10 +107,11 @@ export default function HomePage() {
     {
       kind: 'output',
       tone: 'success',
-      value:
-        language === 'pt'
-          ? 'interface validada: motion, responsivo, filtros e modal de projetos'
-          : 'interface validated: motion, responsive layout, filters, and project modal',
+      value: pick(language, {
+        pt: 'interface validada: motion, responsivo, filtros e modal de projetos',
+        en: 'interface validated: motion, responsive layout, filters, and project modal',
+        de: 'Interface validiert: Motion, responsives Layout, Filter und Projekt-Modal',
+      }),
     },
     {
       kind: 'command',
@@ -112,10 +120,11 @@ export default function HomePage() {
     {
       kind: 'output',
       tone: 'info',
-      value:
-        language === 'pt'
-          ? 'Next.js 16 + React 19 + Tailwind CSS entregando portfolio auditável'
-          : 'Next.js 16 + React 19 + Tailwind CSS shipping an auditable portfolio',
+      value: pick(language, {
+        pt: 'Next.js 16 + React 19 + Tailwind CSS entregando portfolio auditável',
+        en: 'Next.js 16 + React 19 + Tailwind CSS shipping an auditable portfolio',
+        de: 'Next.js 16 + React 19 + Tailwind CSS liefern ein auditierbares Portfolio',
+      }),
     },
     {
       kind: 'command',
@@ -124,10 +133,11 @@ export default function HomePage() {
     {
       kind: 'output',
       tone: 'warning',
-      value:
-        language === 'pt'
-          ? 'prioridade: ledger de dupla entrada, integração IA e arquitetura mobile-first'
-          : 'priority: double-entry ledger, AI integration, and mobile-first architecture',
+      value: pick(language, {
+        pt: 'prioridade: ledger de dupla entrada, integração IA e arquitetura mobile-first',
+        en: 'priority: double-entry ledger, AI integration, and mobile-first architecture',
+        de: 'Priorität: Ledger mit doppelter Buchführung, KI-Integration und Mobile-first-Architektur',
+      }),
     },
   ];
   const opsCommandLines: CommandTerminalLine[] = t.story.commandCenter.terminal.map((line) => {
@@ -147,7 +157,7 @@ export default function HomePage() {
     { label: t.hero.statsLabel2, value: '2021', detail: t.hero.statsDetail2 },
     {
       label: t.hero.statsLabel3,
-      value: language === 'pt' ? 'IA' : 'AI',
+      value: pick(language, { pt: 'IA', en: 'AI', de: 'KI' }),
       detail: t.hero.statsDetail3,
     },
   ];
@@ -268,6 +278,16 @@ export default function HomePage() {
               className="relative space-y-4"
             >
               <div className="absolute -inset-4 rounded-[28px] bg-dracula-surface/35 blur-2xl sm:-inset-6 sm:rounded-[32px]" />
+              
+              <div className="absolute -top-12 -right-6 z-20 animate-float hidden md:block">
+                <Flag code="br" size={56} className="rotate-12 drop-shadow-[0_15px_15px_rgba(0,0,0,0.5)]" />
+              </div>
+              <div className="absolute -bottom-8 -left-4 z-20 animate-float-slow hidden md:block">
+                <Flag code="us" size={48} className="-rotate-12 drop-shadow-[0_15px_15px_rgba(0,0,0,0.5)]" />
+              </div>
+              <div className="absolute top-1/2 -right-12 z-20 animate-float hidden md:block">
+                <Flag code="de" size={40} className="rotate-45 drop-shadow-[0_15px_15px_rgba(0,0,0,0.5)]" />
+              </div>
 
               
               <div className="relative grid grid-cols-3 gap-2 sm:gap-3">
@@ -323,7 +343,7 @@ export default function HomePage() {
                 <div className="relative z-10 p-5 pb-16 sm:pb-5 sm:pr-[40%]">
                   <div className="flex items-center gap-2 mb-4">
                     <div className="h-1.5 w-1.5 rounded-full bg-dracula-purple shadow-[0_0_8px_rgba(189,147,249,0.8)]" />
-                    <span className="text-[9px] font-bold uppercase tracking-[0.25em] text-dracula-purple drop-shadow-[0_0_8px_rgba(189,147,249,0.5)]">HIGH-TECH ENGINEER ID PROFILE</span>
+                    <span className="text-[9px] font-bold uppercase tracking-[0.25em] text-dracula-purple drop-shadow-[0_0_8px_rgba(189,147,249,0.5)]">VERIFIED ENGINEER PROFILE</span>
                   </div>
 
                   <div className="flex items-start gap-4">
@@ -345,7 +365,7 @@ export default function HomePage() {
                         <span className="text-xl font-bold text-white tracking-tight">Emanuel Vini</span>
                         <span className="rounded-md border border-dracula-purple/20 bg-dracula-purple/10 px-1.5 py-0.5 text-[9px] font-semibold tracking-wider text-dracula-purple">EmanuelMissena</span>
                       </div>
-                      <div className="mt-1 text-xs text-dracula-comment font-medium tracking-wide">Full-stack · 16 anos</div>
+                      <div className="mt-1 text-xs text-dracula-comment font-medium tracking-wide">{t.aboutMe.roleTag}</div>
                     </div>
                   </div>
                 </div>
@@ -371,9 +391,9 @@ export default function HomePage() {
                      <div className="flex items-center gap-2 text-[9px] font-bold uppercase tracking-widest">
                        <span className="text-dracula-comment">LOW-LEVEL</span>
                        <span className="w-12 h-[1px] bg-gradient-to-r from-dracula-comment to-dracula-green opacity-50" />
-                       <span className="text-dracula-green">NZON-LEVEL</span>
+                       <span className="text-dracula-green">HIGH-LEVEL</span>
                      </div>
-                     <div className="text-[7px] text-dracula-comment/60 font-mono mt-1 tracking-wider">CPU: 206...192GHZ // memory status ...</div>
+                     <div className="text-[7px] text-dracula-comment/60 font-mono mt-1 tracking-wider">{t.aboutMe.buildingSince}</div>
                   </div>
                 </div>
 
@@ -396,24 +416,30 @@ export default function HomePage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-70px' }}
                   transition={{ duration: 0.45, delay: 0.1 }}
+                  className="relative"
                 >
+                  <DepthIllustration
+                    src="/illustrations/about-me-dark.svg"
+                    alt="About me"
+                    size={112}
+                    accent="var(--dracula-purple)"
+                    float="slow"
+                    className="absolute -right-4 -top-16 hidden w-24 opacity-80 lg:block xl:-right-10 xl:w-28"
+                  />
+
                   <div className="mb-3 text-xs font-semibold uppercase tracking-widest text-dracula-purple">
-                    {(t as any).aboutMe?.label || 'Quem sou eu'}
+                    {t.aboutMe.label}
                   </div>
                   <h2 className="text-3xl font-semibold tracking-tight text-dracula-fg sm:text-4xl">
-                    {(t as any).aboutMe?.title || 'Um pouco sobre Emanuel Vini'}
+                    {t.aboutMe.title}
                   </h2>
                   <p className="mt-4 text-lg text-dracula-comment">
-                    {(t as any).aboutMe?.subtitle || 'Conheça mais sobre minha origem e o que me motiva.'}
+                    {t.aboutMe.subtitle}
                   </p>
-                  
+
                   <div className="mt-8 space-y-5 text-sm leading-7 text-dracula-fg/80 sm:text-base sm:leading-8">
-                    <p>
-                      {(t as any).aboutMe?.p1 || 'Olá! Sou Emanuel Vini (também conhecido como Emanuel Missena). Nasci no Brasil e, desde muito cedo, fui fascinado por como as coisas funcionam por trás das telas. Aos 10 anos, eu já estava administrando servidores e tentando entender linhas de comando.'}
-                    </p>
-                    <p>
-                      {(t as any).aboutMe?.p2 || 'O que começou com jogos e servidores logo evoluiu para uma paixão por resolver problemas complexos. Gosto de criar soluções que são tanto robustas no backend quanto elegantes no frontend, sempre com um toque humano e foco na experiência do usuário.'}
-                    </p>
+                    <p>{t.aboutMe.p1}</p>
+                    <p>{t.aboutMe.p2}</p>
                   </div>
                 </motion.div>
               </div>
@@ -425,13 +451,13 @@ export default function HomePage() {
             <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-24">
               <div className="mb-12 max-w-3xl">
                 <div className="mb-3 text-xs font-semibold uppercase tracking-widest text-dracula-pink">
-                  {(t as any).skills?.label || 'Habilidades'}
+                  {t.skills.label}
                 </div>
                 <h2 className="text-3xl font-semibold tracking-tight text-dracula-fg sm:text-4xl">
-                  {(t as any).skills?.title || 'O que eu domino'}
+                  {t.skills.title}
                 </h2>
                 <p className="mt-4 text-sm leading-7 text-dracula-comment sm:text-base">
-                  {(t as any).skills?.subtitle || 'Um resumo das principais tecnologias e ferramentas que compõem meu dia a dia.'}
+                  {t.skills.subtitle}
                 </p>
               </div>
 
@@ -470,16 +496,32 @@ export default function HomePage() {
             className="story-section-flat scroll-mt-20 border-y border-dracula-card/60"
           >
             <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-24">
-              <div className="mb-12 max-w-3xl">
-                <div className="mb-3 text-xs font-semibold uppercase tracking-widest text-dracula-pink">
-                  {t.story.label}
+              <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+                <div className="max-w-3xl">
+                  <div className="mb-3 text-xs font-semibold uppercase tracking-widest text-dracula-pink">
+                    {t.story.label}
+                  </div>
+                  <h2 className="text-3xl font-semibold tracking-tight text-dracula-fg sm:text-4xl">
+                    {t.story.title}
+                  </h2>
+                  <p className="mt-4 text-sm leading-7 text-dracula-comment sm:text-base">
+                    {t.story.subtitle}
+                  </p>
                 </div>
-                <h2 className="text-3xl font-semibold tracking-tight text-dracula-fg sm:text-4xl">
-                  {t.story.title}
-                </h2>
-                <p className="mt-4 text-sm leading-7 text-dracula-comment sm:text-base">
-                  {t.story.subtitle}
-                </p>
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  className="hidden md:block w-48 shrink-0 lg:w-56"
+                >
+                  <DepthIllustration
+                    src="/illustrations/hiking-dark.svg"
+                    alt="Story illustration"
+                    size={224}
+                    accent="var(--dracula-pink)"
+                    float="slow"
+                  />
+                </motion.div>
               </div>
 
               <div className="grid gap-5 lg:grid-cols-[1.05fr_0.95fr]">
@@ -545,7 +587,16 @@ export default function HomePage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-80px' }}
                   transition={{ duration: 0.5 }}
+                  className="relative"
                 >
+                  <DepthIllustration
+                    src="/illustrations/secure-server-dark.svg"
+                    alt="Infrastructure command center"
+                    size={132}
+                    accent="var(--dracula-cyan)"
+                    className="absolute -right-2 -top-20 hidden w-28 opacity-85 lg:block xl:-right-8 xl:w-32"
+                  />
+
                   <div className="mb-3 text-xs font-semibold uppercase tracking-widest text-dracula-cyan">
                     {t.story.commandCenter.label}
                   </div>
@@ -578,7 +629,7 @@ export default function HomePage() {
                   title="discord://infra-command-center"
                   subtitle={t.story.commandCenter.eyebrow}
                   badge="ChatOps"
-                  status={language === 'pt' ? 'incidente estabilizado' : 'incident stabilized'}
+                  status={pick(language, { pt: 'incidente estabilizado', en: 'incident stabilized', de: 'Vorfall stabilisiert' })}
                   lines={opsCommandLines}
                   accent="var(--dracula-green)"
                 />
@@ -664,7 +715,7 @@ export default function HomePage() {
               </div>
 
               <div className="mt-12 grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
-                <div>
+                <div className="relative">
                   <div className="mb-3 text-xs font-semibold uppercase tracking-widest text-dracula-green">
                     {t.story.commandCenter.proofKicker}
                   </div>
@@ -677,6 +728,19 @@ export default function HomePage() {
                   <p className="mt-5 text-sm leading-7 text-dracula-comment">
                     {t.story.commandCenter.closer}
                   </p>
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    className="absolute -top-10 -right-4 hidden w-32 opacity-70 lg:block"
+                  >
+                    <DepthIllustration
+                      src="/illustrations/secure-login-dark.svg"
+                      alt="Secure evidence"
+                      size={128}
+                      accent="var(--dracula-green)"
+                    />
+                  </motion.div>
                 </div>
 
                 <div className="grid gap-3 sm:grid-cols-2">
@@ -705,16 +769,32 @@ export default function HomePage() {
             className="story-section-flat scroll-mt-20 border-y border-dracula-card/60"
           >
             <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-20">
-              <div className="mb-10 max-w-2xl">
-                <div className="mb-3 text-xs font-semibold uppercase tracking-widest text-dracula-cyan">
-                  {t.services.label}
+              <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
+                <div className="max-w-2xl">
+                  <div className="mb-3 text-xs font-semibold uppercase tracking-widest text-dracula-cyan">
+                    {t.services.label}
+                  </div>
+                  <h2 className="text-3xl font-semibold tracking-tight text-dracula-fg">
+                    {t.services.title}
+                  </h2>
+                  <p className="mt-4 text-sm leading-7 text-dracula-comment">
+                    {t.services.subtitle}
+                  </p>
                 </div>
-                <h2 className="text-3xl font-semibold tracking-tight text-dracula-fg">
-                  {t.services.title}
-                </h2>
-                <p className="mt-4 text-sm leading-7 text-dracula-comment">
-                  {t.services.subtitle}
-                </p>
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  className="hidden md:block w-48 shrink-0 lg:w-56"
+                >
+                  <DepthIllustration
+                    src="/illustrations/online-learning-dark.svg"
+                    alt="Services illustration"
+                    size={224}
+                    accent="var(--dracula-cyan)"
+                    float="slow"
+                  />
+                </motion.div>
               </div>
 
               <div className="grid gap-4 md:grid-cols-3">
@@ -740,7 +820,7 @@ export default function HomePage() {
           </section>
 
           <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-24">
-            <div className="mb-12 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+            <div className="mb-12 flex flex-col gap-5 md:flex-row md:items-end md:justify-between relative">
               <div className="max-w-3xl">
                 <div className="mb-3 text-xs font-semibold uppercase tracking-widest text-dracula-orange">
                   {t.story.timelineLabel}
@@ -752,15 +832,30 @@ export default function HomePage() {
                   {t.story.timelineSubtitle}
                 </p>
               </div>
-              <a
-                href="https://github.com/emanuelVINI01?tab=repositories"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex w-fit items-center gap-2 rounded-xl border border-dracula-orange/25 bg-dracula-orange/10 px-4 py-2 text-sm font-semibold text-dracula-orange transition-colors hover:border-dracula-orange/60"
-              >
-                {t.common.verifyOnGithub}
-                <ExternalLink className="h-4 w-4" />
-              </a>
+              <div className="flex flex-col items-end gap-4">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  className="hidden lg:block w-40"
+                >
+                  <DepthIllustration
+                    src="/illustrations/celebrating-dark.svg"
+                    alt="Timeline success"
+                    size={160}
+                    accent="var(--dracula-orange)"
+                  />
+                </motion.div>
+                <a
+                  href="https://github.com/emanuelVINI01?tab=repositories"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex w-fit items-center gap-2 rounded-xl border border-dracula-orange/25 bg-dracula-orange/10 px-4 py-2 text-sm font-semibold text-dracula-orange transition-colors hover:border-dracula-orange/60"
+                >
+                  {t.common.verifyOnGithub}
+                  <ExternalLink className="h-4 w-4" />
+                </a>
+              </div>
             </div>
 
             <div className="grid gap-4 lg:grid-cols-2">
@@ -800,7 +895,7 @@ export default function HomePage() {
                       rel="noopener noreferrer"
                       className="mt-4 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-dracula-cyan transition-colors hover:text-dracula-green"
                     >
-                      {t.common.verifyOnGithub}
+                      {getTimelineLinkLabel(item.href)}
                       <ExternalLink className="h-3.5 w-3.5" />
                     </a>
                   </motion.div>

@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { CheckCircle2, Copy, Terminal } from 'lucide-react';
 import { SiCloudflare, SiDiscord, SiGithub, SiLinux, SiNextdotjs, SiPrisma, SiReact, SiTypescript } from 'react-icons/si';
 import { useLanguage } from '@/context/LanguageContext';
+import { pick } from '@/i18n/dictionaries';
 
 export type CommandTerminalLine =
   | {
@@ -115,8 +116,8 @@ export default function CommandTerminal({
             onClick={handleCopy}
             whileTap={{ scale: 0.92 }}
             className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-dracula-card/70 bg-dracula-bg/40 text-dracula-comment transition-colors hover:border-dracula-cyan/50 hover:text-dracula-cyan"
-            aria-label={language === 'pt' ? 'Copiar comandos' : 'Copy commands'}
-            title={language === 'pt' ? 'Copiar comandos' : 'Copy commands'}
+            aria-label={pick(language, { pt: 'Copiar comandos', en: 'Copy commands', de: 'Befehle kopieren' })}
+            title={pick(language, { pt: 'Copiar comandos', en: 'Copy commands', de: 'Befehle kopieren' })}
           >
             <AnimatePresence mode="wait" initial={false}>
               <motion.span
@@ -181,11 +182,11 @@ export default function CommandTerminal({
               <div className="inline-flex items-center gap-2 text-dracula-cyan">
                 <span className="h-1.5 w-1.5 rounded-full bg-dracula-cyan shadow-[0_0_8px_rgba(139,233,253,0.85)]" />
                 <span className="text-[9px] font-bold uppercase tracking-widest">
-                  {status ?? (language === 'pt' ? 'sistema pronto' : 'system ready')}
+                  {status ?? pick(language, { pt: 'sistema pronto', en: 'system ready', de: 'System bereit' })}
                 </span>
               </div>
               <div className="flex h-4 items-center gap-1.5 text-[9px] text-dracula-comment uppercase tracking-widest font-semibold">
-                <span>{language === 'pt' ? 'aguardando' : 'awaiting'}</span>
+                <span>{pick(language, { pt: 'aguardando', en: 'awaiting', de: 'wartend' })}</span>
                 <span className="h-3 w-1.5 animate-[blink_1s_steps(2)_infinite] bg-dracula-cyan" />
               </div>
             </div>

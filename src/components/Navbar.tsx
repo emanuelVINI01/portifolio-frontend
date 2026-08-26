@@ -9,19 +9,19 @@ import {
   BookOpenText,
   BriefcaseBusiness,
   ExternalLink,
-  Globe,
   Home,
   Layers,
   Orbit,
 } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 type SectionId = 'home' | 'about' | 'skills' | 'story' | 'projects' | 'stack' | 'services';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState<SectionId>('home');
-  const { language, t, toggleLanguage } = useLanguage();
+  const { t } = useLanguage();
   const pathname = usePathname();
 
   const sectionIds = useMemo<SectionId[]>(
@@ -31,8 +31,8 @@ export default function Navbar() {
 
   const navLinks = useMemo(
     () => [
-      { id: 'about' as SectionId, label: (t as any).aboutMe?.label || 'Quem sou eu', href: '/#about', icon: BookOpenText },
-      { id: 'skills' as SectionId, label: (t as any).skills?.label || 'Habilidades', href: '/#skills', icon: Orbit },
+      { id: 'about' as SectionId, label: t.aboutMe.label, href: '/#about', icon: BookOpenText },
+      { id: 'skills' as SectionId, label: t.skills.label, href: '/#skills', icon: Orbit },
       { id: 'story' as SectionId, label: t.nav.story, href: '/#story', icon: BookOpenText },
       { id: 'services' as SectionId, label: t.nav.services, href: '/#services', icon: BriefcaseBusiness },
       { id: 'projects' as SectionId, label: t.nav.projects, href: '/projects', icon: Layers },
@@ -43,8 +43,8 @@ export default function Navbar() {
   const mobileNavLinks = useMemo(
     () => [
       { id: 'home' as SectionId, label: t.nav.home, href: '/#home', icon: Home },
-      { id: 'about' as SectionId, label: (t as any).aboutMe?.label || 'Sobre', href: '/#about', icon: BookOpenText },
-      { id: 'skills' as SectionId, label: (t as any).skills?.label || 'Tech', href: '/#skills', icon: Orbit },
+      { id: 'about' as SectionId, label: t.aboutMe.label, href: '/#about', icon: BookOpenText },
+      { id: 'skills' as SectionId, label: t.skills.label, href: '/#skills', icon: Orbit },
       { id: 'story' as SectionId, label: t.nav.story, href: '/#story', icon: BookOpenText },
       { id: 'projects' as SectionId, label: t.nav.projects, href: '/projects', icon: Layers },
     ],
@@ -166,14 +166,7 @@ export default function Navbar() {
               })}
             </div>
 
-            <button
-              onClick={toggleLanguage}
-              className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-dracula-card bg-dracula-card/30 px-2.5 text-xs font-semibold uppercase tracking-widest text-dracula-fg transition-colors hover:border-dracula-purple/50 hover:text-dracula-purple sm:px-3"
-              title="Toggle Language"
-            >
-              <Globe className="h-3.5 w-3.5" />
-              <span>{language.toUpperCase()}</span>
-            </button>
+            <LanguageSwitcher />
 
             <a
               href="https://github.com/emanuelVINI01"

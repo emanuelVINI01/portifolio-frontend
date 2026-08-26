@@ -3,6 +3,7 @@
 import { useState, useRef, useId } from 'react';
 import { Search, X } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
+import { pick } from '@/i18n/dictionaries';
 
 interface SearchBarProps {
   value: string;
@@ -74,7 +75,7 @@ export default function SearchBar({ value, onChange, placeholder = 'Search proje
             style={{ color: 'var(--dracula-comment)' }}
             onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = 'var(--dracula-red)')}
             onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = 'var(--dracula-comment)')}
-            aria-label={language === 'pt' ? 'Limpar busca' : 'Clear search'}
+            aria-label={pick(language, { pt: 'Limpar busca', en: 'Clear search', de: 'Suche löschen' })}
           >
             <X size={14} />
           </button>

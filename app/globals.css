@@ -94,6 +94,38 @@ body::before {
   background-size: 256px 256px;
 }
 
+/* Ambient background life: two slow-drifting, low-opacity glow blobs. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.16;
+  background-image:
+    radial-gradient(640px circle at center, var(--dracula-purple), transparent 70%),
+    radial-gradient(600px circle at center, var(--dracula-cyan), transparent 70%);
+  background-position: 12% 18%, 88% 78%;
+  background-repeat: no-repeat;
+  filter: blur(110px);
+  animation: ambient-drift 34s ease-in-out infinite alternate;
+}
+
+@keyframes ambient-drift {
+  0% {
+    background-position: 12% 18%, 88% 78%;
+  }
+  100% {
+    background-position: 22% 30%, 78% 64%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::after {
+    animation: none;
+  }
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -214,4 +246,24 @@ a {
   58%, 100% {
     transform: translateY(100%);
   }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes float-slow {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float-slow 7s ease-in-out infinite;
 }

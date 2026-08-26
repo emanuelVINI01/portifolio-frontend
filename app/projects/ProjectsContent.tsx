@@ -15,6 +15,8 @@ import ProjectPod from '@/components/ProjectPod';
 import SearchBar from '@/components/SearchBar';
 import { getCategories, getProjects, type Project } from '@/data/projects';
 import { useLanguage } from '@/context/LanguageContext';
+import { pick } from '@/i18n/dictionaries';
+import DepthIllustration from '@/components/ui/DepthIllustration';
 
 const ParallaxGrid = dynamic(() => import('@/components/ParallaxGrid'), { ssr: false });
 
@@ -84,7 +86,7 @@ export default function ProjectsContent() {
   }, [categories, projects]);
 
   const spotlightProjects = useMemo(() => {
-    const spotlightIds = ['browia', 'simple-bank', 'snippetvault'];
+    const spotlightIds = ['browia', 'cvm-runtime', 'simple-bank'];
     return spotlightIds
       .map((id) => projects.find((project) => project.id === id))
       .filter(Boolean) as Project[];
@@ -98,10 +100,11 @@ export default function ProjectsContent() {
     {
       kind: 'output',
       tone: 'success',
-      value:
-        language === 'pt'
-          ? `${filtered.length} projetos prontos para auditoria tecnica`
-          : `${filtered.length} projects ready for technical review`,
+      value: pick(language, {
+        pt: `${filtered.length} projetos prontos para auditoria tecnica`,
+        en: `${filtered.length} projects ready for technical review`,
+        de: `${filtered.length} Projekte bereit zur technischen Prüfung`,
+      }),
     },
     {
       kind: 'command',
@@ -110,10 +113,11 @@ export default function ProjectsContent() {
     {
       kind: 'output',
       tone: 'info',
-      value:
-        language === 'pt'
-          ? 'priorizando ledger transacional, ferramentas dev e produtos web'
-          : 'prioritizing transactional ledger, dev tools, and web products',
+      value: pick(language, {
+        pt: 'priorizando sistemas bare-metal, ledger transacional e ferramentas dev',
+        en: 'prioritizing bare-metal systems, transactional ledger, and dev tools',
+        de: 'priorisiert Bare-Metal-Systeme, transaktionales Ledger und Dev-Tools',
+      }),
     },
   ];
 
@@ -131,8 +135,17 @@ export default function ProjectsContent() {
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
-                className="max-w-3xl"
+                className="relative max-w-3xl"
               >
+                <DepthIllustration
+                  src="/illustrations/launch-day-dark.svg"
+                  alt="Projects launch"
+                  size={128}
+                  accent="var(--dracula-cyan)"
+                  float="slow"
+                  className="absolute -right-6 -top-16 hidden w-28 opacity-80 lg:block xl:-right-10 xl:w-32"
+                />
+
                 <div className="mb-3 text-xs font-semibold uppercase tracking-widest text-dracula-cyan">
                   {t.nav.projects}
                 </div>
@@ -146,9 +159,9 @@ export default function ProjectsContent() {
 
               <CommandTerminal
                 title="portfolio://project-index"
-                subtitle={language === 'pt' ? 'catalogo filtravel com sinais tecnicos' : 'filterable catalog with technical signals'}
-                badge={language === 'pt' ? 'projetos' : 'projects'}
-                status={language === 'pt' ? 'catalogo sincronizado' : 'catalog synced'}
+                subtitle={pick(language, { pt: 'catalogo filtravel com sinais tecnicos', en: 'filterable catalog with technical signals', de: 'filterbarer Katalog mit technischen Signalen' })}
+                badge={pick(language, { pt: 'projetos', en: 'projects', de: 'Projekte' })}
+                status={pick(language, { pt: 'catalogo sincronizado', en: 'catalog synced', de: 'Katalog synchronisiert' })}
                 lines={projectCommandLines}
                 accent="var(--dracula-cyan)"
                 dense

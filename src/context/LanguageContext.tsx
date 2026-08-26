@@ -6,11 +6,12 @@ import { type Language, type Dictionary, dictionaries } from '@/i18n/dictionarie
 interface LanguageContextProps {
   language: Language;
   t: Dictionary;
-  toggleLanguage: () => void;
   setLanguage: (lang: Language) => void;
 }
 
 const LanguageContext = createContext<LanguageContextProps | undefined>(undefined);
+
+const SUPPORTED_LANGUAGES: Language[] = ['pt', 'en', 'de'];
 
 export const LanguageProvider = ({ children }: { children: React.ReactNode }) => {
   const [language, setLanguageState] = useState<Language>('pt');
@@ -19,11 +20,17 @@ export const LanguageProvider = ({ children }: { children: React.ReactNode }) =>
   useEffect(() => {
     const frame = requestAnimationFrame(() => {
       const storedLang = localStorage.getItem('app-lang') as Language | null;
-      if (storedLang && (storedLang === 'pt' || storedLang === 'en')) {
+      if (storedLang && SUPPORTED_LANGUAGES.includes(storedLang)) {
         setLanguageState(storedLang);
       } else {
         const browserLang = navigator.language.toLowerCase();
-        setLanguageState(browserLang.startsWith('en') ? 'en' : 'pt');
+        if (browserLang.startsWith('en')) {
+          setLanguageState('en');
+        } else if (browserLang.startsWith('de')) {
+          setLanguageState('de');
+        } else {
+          setLanguageState('pt');
+        }
       }
       setMounted(true);
     });
@@ -36,14 +43,6 @@ export const LanguageProvider = ({ children }: { children: React.ReactNode }) =>
     localStorage.setItem('app-lang', lang);
   };
 
-  const toggleLanguage = () => {
-    setLanguageState((prev) => {
-      const newLang = prev === 'pt' ? 'en' : 'pt';
-      localStorage.setItem('app-lang', newLang);
-      return newLang;
-    });
-  };
-
   const t = dictionaries[language];
 
   // While not mounted, render children with default language (pt) to prevent hydration mismatches
@@ -52,7 +51,7 @@ export const LanguageProvider = ({ children }: { children: React.ReactNode }) =>
   // Next.js might complain if text differs between server (pt) and client (en) on first render.
   
   return (
-    <LanguageContext.Provider value={{ language, t, toggleLanguage, setLanguage }}>
+    <LanguageContext.Provider value={{ language, t, setLanguage }}>
       <div className={mounted ? 'opacity-100 transition-opacity duration-300' : 'opacity-0'}>
          {children}
       </div>

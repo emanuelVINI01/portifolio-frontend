@@ -3,37 +3,88 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
+  Atom,
   BarChart3,
+  Binary,
+  Bot,
+  BrainCircuit,
   CheckCircle2,
+  Coffee,
+  Cpu,
+  Database,
   ExternalLink,
   FileUp,
   Gauge,
   GitFork,
+  History,
   KeyRound,
+  Landmark,
+  LayoutTemplate,
+  Library,
+  Link2,
+  PartyPopper,
+  Puzzle,
   Radio,
   Search,
+  Server,
+  Share2,
   Shield,
+  SlidersHorizontal,
   Sparkles,
+  Swords,
   Terminal,
   WalletCards,
+  Wrench,
+  Zap,
 } from 'lucide-react';
 import { type Project } from '@/data/projects';
+import { getCardPatternStyle, getProjectVisual } from '@/data/projectVisuals';
 import { useLanguage } from '@/context/LanguageContext';
 
 const BADGE_CONFIG: Record<string, { icon: typeof Sparkles; color: string }> = {
-  Transactional: { icon: WalletCards, color: 'var(--dracula-cyan)' },
-  Auth: { icon: KeyRound, color: 'var(--dracula-green)' },
-  API: { icon: Terminal, color: 'var(--dracula-cyan)' },
-  Dashboard: { icon: BarChart3, color: 'var(--dracula-purple)' },
-  'Open Source': { icon: GitFork, color: 'var(--dracula-green)' },
-  'Speed Optimized': { icon: Gauge, color: 'var(--dracula-cyan)' },
-  'Real-Time': { icon: Radio, color: 'var(--dracula-pink)' },
-  Search: { icon: Search, color: 'var(--dracula-purple)' },
-  Analytics: { icon: BarChart3, color: 'var(--dracula-green)' },
-  'File Upload': { icon: FileUp, color: 'var(--dracula-yellow)' },
-  Utility: { icon: CheckCircle2, color: 'var(--dracula-orange)' },
-  Portfolio: { icon: Sparkles, color: 'var(--dracula-purple)' },
-  TypeScript: { icon: Shield, color: 'var(--dracula-cyan)' },
+  Transactional: { icon: WalletCards, color: '#8be9fd' },
+  Auth: { icon: KeyRound, color: '#50fa7b' },
+  API: { icon: Terminal, color: '#8be9fd' },
+  Dashboard: { icon: BarChart3, color: '#bd93f9' },
+  'Open Source': { icon: GitFork, color: '#50fa7b' },
+  'Speed Optimized': { icon: Gauge, color: '#8be9fd' },
+  'Real-Time': { icon: Radio, color: '#ff79c6' },
+  Search: { icon: Search, color: '#bd93f9' },
+  Analytics: { icon: BarChart3, color: '#50fa7b' },
+  'File Upload': { icon: FileUp, color: '#f1fa8c' },
+  Utility: { icon: CheckCircle2, color: '#ffb86c' },
+  Portfolio: { icon: Sparkles, color: '#bd93f9' },
+  TypeScript: { icon: Shield, color: '#8be9fd' },
+  AI: { icon: BrainCircuit, color: '#ff79c6' },
+  'Discord Bot': { icon: Bot, color: '#bd93f9' },
+  Java: { icon: Coffee, color: '#ffb86c' },
+  Legacy: { icon: History, color: '#a7b0c8' },
+  'Browser Extension': { icon: Puzzle, color: '#8be9fd' },
+  Electron: { icon: Atom, color: '#8be9fd' },
+  'Bare Metal': { icon: Cpu, color: '#ff5555' },
+};
+
+export const WATERMARK_ICONS: Record<string, typeof Sparkles> = {
+  landmark: Landmark,
+  cpu: Cpu,
+  binary: Binary,
+  zap: Zap,
+  puzzle: Puzzle,
+  'brain-circuit': BrainCircuit,
+  library: Library,
+  gauge: Gauge,
+  bot: Bot,
+  server: Server,
+  swords: Swords,
+  'layout-template': LayoutTemplate,
+  'link-2': Link2,
+  shield: Shield,
+  'party-popper': PartyPopper,
+  database: Database,
+  wrench: Wrench,
+  'sliders-horizontal': SlidersHorizontal,
+  'share-2': Share2,
+  sparkles: Sparkles,
 };
 
 interface ProjectPodProps {
@@ -48,6 +99,9 @@ export default function ProjectPod({ project, onClick, index = 0, spotlight = fa
   const { t } = useLanguage();
   const isElevated = hovered || spotlight;
   const openProject = () => onClick(project);
+  const visual = getProjectVisual(project.id);
+  const WatermarkIcon = WATERMARK_ICONS[visual.icon] ?? Sparkles;
+  const patternStyle = getCardPatternStyle(visual.pattern, project.color);
 
   return (
     <motion.article
@@ -83,6 +137,31 @@ export default function ProjectPod({ project, onClick, index = 0, spotlight = fa
         backdropFilter: 'blur(16px)',
       }}
     >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-0 transition-opacity duration-300"
+        style={{ ...patternStyle, opacity: isElevated ? 0.9 : 0.55 }}
+      />
+      <WatermarkIcon
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-4 -right-4 z-0 h-24 w-24 rotate-[-8deg] transition-transform duration-300 group-hover:rotate-0"
+        style={{ color: project.color, opacity: isElevated ? 0.16 : 0.09 }}
+      />
+      {visual.pattern === 'circuit' &&
+        [
+          'left-2.5 top-2.5 border-l border-t',
+          'right-2.5 top-2.5 border-r border-t',
+          'left-2.5 bottom-2.5 border-l border-b',
+          'right-2.5 bottom-2.5 border-r border-b',
+        ].map((corner) => (
+          <span
+            key={corner}
+            aria-hidden="true"
+            className={`pointer-events-none absolute z-0 h-2.5 w-2.5 ${corner}`}
+            style={{ borderColor: `${project.color}80` }}
+          />
+        ))}
+
       <AnimatePresence>
         {isElevated && (
           <motion.span
@@ -111,7 +190,8 @@ export default function ProjectPod({ project, onClick, index = 0, spotlight = fa
         />
       )}
 
-      <div className="mb-4 flex items-start justify-between gap-3">
+      <div className="relative z-10 flex h-full min-w-0 flex-col">
+      <div className="mb-3 flex items-start justify-between gap-3">
         <span
           className="min-w-0 max-w-full truncate rounded-full border px-2.5 py-1 text-[9px] font-semibold uppercase tracking-widest sm:text-[10px]"
           style={{
@@ -134,6 +214,13 @@ export default function ProjectPod({ project, onClick, index = 0, spotlight = fa
         )}
       </div>
 
+      <div
+        className="mb-2 min-w-0 truncate font-mono text-[10px] tracking-tight"
+        style={{ color: `${project.color}b3` }}
+      >
+        {visual.tag}
+      </div>
+
       <h3 className="mb-2 min-w-0 text-base font-semibold tracking-tight text-dracula-fg sm:text-lg">
         {project.name}
       </h3>
@@ -144,7 +231,7 @@ export default function ProjectPod({ project, onClick, index = 0, spotlight = fa
         {project.badges.slice(0, 4).map((badge) => {
           const conf = BADGE_CONFIG[badge];
           const Icon = conf?.icon ?? Sparkles;
-          const color = conf?.color ?? 'var(--dracula-purple)';
+          const color = conf?.color ?? '#bd93f9';
 
           return (
             <motion.span
@@ -200,8 +287,8 @@ export default function ProjectPod({ project, onClick, index = 0, spotlight = fa
               className="inline-flex min-w-0 items-center gap-1.5 transition-colors"
               style={{ color: project.color }}
             >
-              {t.common.liveProject}
-              <ExternalLink className="h-3.5 w-3.5" />
+              <span className="truncate max-w-[120px] sm:max-w-[160px]">{project.liveUrl.replace(/^https?:\/\//, '')}</span>
+              <ExternalLink className="h-3.5 w-3.5 shrink-0" />
             </a>
           )}
           <a
@@ -218,6 +305,7 @@ export default function ProjectPod({ project, onClick, index = 0, spotlight = fa
             <ExternalLink className="h-3.5 w-3.5" />
           </a>
         </div>
+      </div>
       </div>
     </motion.article>
   );

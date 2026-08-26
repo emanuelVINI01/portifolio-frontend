@@ -2,10 +2,13 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, Link2, Check, X } from 'lucide-react';
+import { ExternalLink, Link2, Check, Sparkles, X } from 'lucide-react';
 import CommandTerminal, { type CommandTerminalLine } from '@/components/CommandTerminal';
 import { type Project } from '@/data/projects';
+import { getProjectVisual } from '@/data/projectVisuals';
+import { WATERMARK_ICONS } from '@/components/ProjectPod';
 import { useLanguage } from '@/context/LanguageContext';
+import { pick } from '@/i18n/dictionaries';
 
 interface ProjectModalProps {
   project: Project | null;
@@ -26,10 +29,11 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
         {
           kind: 'output',
           tone: 'success',
-          value:
-            language === 'pt'
-              ? 'ambiente local pronto para revisar arquitetura, UX e contratos'
-              : 'local environment ready to review architecture, UX, and contracts',
+          value: pick(language, {
+            pt: 'ambiente local pronto para revisar arquitetura, UX e contratos',
+            en: 'local environment ready to review architecture, UX, and contracts',
+            de: 'lokale Umgebung bereit zur Prüfung von Architektur, UX und Verträgen',
+          }),
         },
       ]
     : [];
@@ -97,20 +101,32 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
               className="flex min-w-0 items-start justify-between gap-4 border-b px-4 py-4 sm:px-6"
               style={{ borderColor: 'rgba(68,71,90,0.7)' }}
             >
-              <div className="min-w-0">
-                <div className="text-[10px] font-semibold uppercase tracking-widest text-dracula-comment">
-                  {language === 'pt' ? 'Projeto selecionado' : 'Selected Project'}
+              <div className="flex min-w-0 items-start gap-3">
+                <div
+                  aria-hidden="true"
+                  className="mt-0.5 hidden shrink-0 rounded-lg border p-2 sm:flex"
+                  style={{ borderColor: `${project.color}33`, background: `${project.color}12` }}
+                >
+                  {(() => {
+                    const Icon = WATERMARK_ICONS[getProjectVisual(project.id).icon] ?? Sparkles;
+                    return <Icon className="h-5 w-5" style={{ color: project.color }} />;
+                  })()}
                 </div>
-                <h2 className="mt-1 text-xl font-semibold tracking-tight text-dracula-fg sm:text-2xl">
-                  {project.name}
-                </h2>
+                <div className="min-w-0">
+                  <div className="text-[10px] font-semibold uppercase tracking-widest text-dracula-comment">
+                    {pick(language, { pt: 'Projeto selecionado', en: 'Selected Project', de: 'Ausgewähltes Projekt' })}
+                  </div>
+                  <h2 className="mt-1 text-xl font-semibold tracking-tight text-dracula-fg sm:text-2xl">
+                    {project.name}
+                  </h2>
+                </div>
               </div>
               <div className="flex items-center gap-2">
                 {/* Copy deep-link button */}
                 <button
                   type="button"
                   onClick={copyProjectLink}
-                  title={language === 'pt' ? 'Copiar link direto para este projeto' : 'Copy direct link to this project'}
+                  title={pick(language, { pt: 'Copiar link direto para este projeto', en: 'Copy direct link to this project', de: 'Direktlink zu diesem Projekt kopieren' })}
                   className="group relative rounded-lg border border-dracula-card bg-dracula-card/30 p-2 text-dracula-comment transition-all"
                   style={{}}
                   onMouseEnter={(e) => {
@@ -121,7 +137,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                     e.currentTarget.style.color = 'var(--dracula-comment)';
                     e.currentTarget.style.borderColor = 'var(--dracula-card)';
                   }}
-                  aria-label={language === 'pt' ? 'Copiar link do projeto' : 'Copy project link'}
+                  aria-label={pick(language, { pt: 'Copiar link do projeto', en: 'Copy project link', de: 'Projektlink kopieren' })}
                 >
                   <AnimatePresence mode="wait">
                     {linkCopied ? (
@@ -149,8 +165,8 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                   {/* Tooltip */}
                   <span className="pointer-events-none absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-dracula-card px-2 py-1 text-[10px] font-semibold text-dracula-fg opacity-0 shadow-lg transition-opacity group-hover:opacity-100">
                     {linkCopied
-                      ? (language === 'pt' ? 'Copiado!' : 'Copied!')
-                      : (language === 'pt' ? 'Copiar link' : 'Copy link')}
+                      ? pick(language, { pt: 'Copiado!', en: 'Copied!', de: 'Kopiert!' })
+                      : pick(language, { pt: 'Copiar link', en: 'Copy link', de: 'Link kopieren' })}
                   </span>
                 </button>
 
@@ -158,7 +174,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                   type="button"
                   onClick={onClose}
                   className="rounded-lg border border-dracula-card bg-dracula-card/30 p-2 text-dracula-comment transition-colors hover:border-dracula-red/50 hover:text-dracula-red"
-                  aria-label={language === 'pt' ? 'Fechar detalhes do projeto' : 'Close project details'}
+                  aria-label={pick(language, { pt: 'Fechar detalhes do projeto', en: 'Close project details', de: 'Projektdetails schließen' })}
                 >
                   <X className="h-4 w-4" />
                 </button>
@@ -179,7 +195,11 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 </span>
                 {project.updatedAt && (
                   <span className="text-xs text-dracula-comment">
-                    {language === 'pt' ? `Atualizado no GitHub em ${project.updatedAt}` : `Updated on GitHub on ${project.updatedAt}`}
+                    {pick(language, {
+                      pt: `Atualizado no GitHub em ${project.updatedAt}`,
+                      en: `Updated on GitHub on ${project.updatedAt}`,
+                      de: `Zuletzt aktualisiert auf GitHub am ${project.updatedAt}`,
+                    })}
                   </span>
                 )}
               </div>
@@ -187,10 +207,10 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
               <p className="text-sm leading-relaxed text-dracula-comment">{project.longDesc}</p>
 
               <CommandTerminal
-                title={language === 'pt' ? 'runbook do projeto' : 'project runbook'}
-                subtitle={language === 'pt' ? 'comandos base para auditoria local' : 'base commands for local audit'}
+                title={pick(language, { pt: 'runbook do projeto', en: 'project runbook', de: 'Projekt-Runbook' })}
+                subtitle={pick(language, { pt: 'comandos base para auditoria local', en: 'base commands for local audit', de: 'Basisbefehle für die lokale Prüfung' })}
                 badge={project.year ? String(project.year) : undefined}
-                status={language === 'pt' ? 'comandos copiaveis' : 'copy-ready commands'}
+                status={pick(language, { pt: 'comandos copiaveis', en: 'copy-ready commands', de: 'kopierbereite Befehle' })}
                 lines={runbookLines}
                 accent={project.color}
                 dense
@@ -198,7 +218,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
               <div>
                 <div className="mb-3 text-xs font-semibold uppercase tracking-widest text-dracula-fg">
-                  {language === 'pt' ? 'Destaques técnicos' : 'Technical Highlights'}
+                  {pick(language, { pt: 'Destaques técnicos', en: 'Technical Highlights', de: 'Technische Highlights' })}
                 </div>
                 <div className="grid gap-3 sm:grid-cols-2">
                   {project.highlights.map((highlight) => (
@@ -252,8 +272,8 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                       e.currentTarget.style.borderColor = `${project.color}40`;
                     }}
                   >
-                    {language === 'pt' ? 'Abrir app' : 'Open app'}
-                    <ExternalLink className="h-4 w-4" />
+                    <span className="truncate">{project.liveUrl.replace(/^https?:\/\//, '')}</span>
+                    <ExternalLink className="h-4 w-4 shrink-0" />
                   </a>
                 )}
                 <a
@@ -275,7 +295,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                     e.currentTarget.style.borderColor = `${project.color}40`;
                   }}
                 >
-                  {language === 'pt' ? 'Abrir repositório' : 'Open repository'}
+                  {pick(language, { pt: 'Abrir repositório', en: 'Open repository', de: 'Repository öffnen' })}
                   <ExternalLink className="h-4 w-4" />
                 </a>
               </div>
