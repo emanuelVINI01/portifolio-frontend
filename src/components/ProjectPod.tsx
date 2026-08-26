@@ -105,7 +105,6 @@ export default function ProjectPod({ project, onClick, index = 0, spotlight = fa
 
   return (
     <motion.article
-      layout
       initial={{ opacity: 0, y: spotlight ? 30 : 20, scale: spotlight ? 0.98 : 1 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: -10, scale: 0.98 }}
@@ -129,12 +128,11 @@ export default function ProjectPod({ project, onClick, index = 0, spotlight = fa
         spotlight ? 'lg:-mt-5 lg:mb-5' : ''
       }`}
       style={{
-        background: isElevated ? 'rgba(62,65,82,0.86)' : 'rgba(52,55,70,0.72)',
+        background: isElevated ? 'rgba(62,65,82,0.95)' : 'rgba(52,55,70,0.92)',
         borderColor: isElevated ? `${project.color}66` : 'rgba(68,71,90,0.72)',
         boxShadow: isElevated
           ? `0 24px 70px rgba(0,0,0,0.34), 0 0 0 1px ${project.color}24, 0 0 38px ${project.glowColor}`
           : '0 10px 30px rgba(0,0,0,0.18)',
-        backdropFilter: 'blur(16px)',
       }}
     >
       <div
