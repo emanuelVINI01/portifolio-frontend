@@ -16,7 +16,7 @@ const firaCode = Fira_Code({
 export const metadata: Metadata = {
   metadataBase: new URL("https://emanuelmissena.com"),
   title: {
-    default: "Emanuel Vini | EmanuelMissena – Full-stack Developer Portfolio",
+    default: "Emanuel Missena – Full-stack Developer Portfolio",
     template: "%s | Emanuel Vini",
   },
   description:
