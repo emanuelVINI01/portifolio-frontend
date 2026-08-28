@@ -349,7 +349,7 @@ export default function HomePage() {
                   <div className="flex items-start gap-4">
                     <div className="relative shrink-0">
                       <Image
-                        src="/profile.png"
+                        src="https://github.com/emanuelVINI01.png"
                         alt="Emanuel Vini – EmanuelMissena"
                         width={48}
                         height={48}
