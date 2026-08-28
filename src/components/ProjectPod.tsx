@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import type { MouseEvent } from 'react';
+import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   Atom,
@@ -103,6 +105,14 @@ export default function ProjectPod({ project, onClick, index = 0, spotlight = fa
   const WatermarkIcon = WATERMARK_ICONS[visual.icon] ?? Sparkles;
   const patternStyle = getCardPatternStyle(visual.pattern, project.color);
 
+  const handleCardClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) {
+      return;
+    }
+    event.preventDefault();
+    openProject();
+  };
+
   return (
     <motion.article
       initial={{ opacity: 0, y: spotlight ? 30 : 20, scale: spotlight ? 0.98 : 1 }}
@@ -110,20 +120,8 @@ export default function ProjectPod({ project, onClick, index = 0, spotlight = fa
       exit={{ opacity: 0, y: -10, scale: 0.98 }}
       transition={{ duration: 0.34, delay: index * 0.04, ease: 'easeOut' }}
       whileHover={{ y: spotlight ? -10 : -7, scale: spotlight ? 1.015 : 1.01 }}
-      onClick={openProject}
-      onKeyDown={(event) => {
-        if (event.target !== event.currentTarget) return;
-
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault();
-          openProject();
-        }
-      }}
       onHoverStart={() => setHovered(true)}
       onHoverEnd={() => setHovered(false)}
-      role="button"
-      tabIndex={0}
-      aria-label={`${t.common.viewProject}: ${project.name}`}
       className={`group relative flex h-full min-w-0 max-w-full cursor-pointer flex-col overflow-hidden rounded-xl border p-4 transition-colors sm:p-5 ${
         spotlight ? 'lg:-mt-5 lg:mb-5' : ''
       }`}
@@ -188,7 +186,7 @@ export default function ProjectPod({ project, onClick, index = 0, spotlight = fa
         />
       )}
 
-      <div className="relative z-10 flex h-full min-w-0 flex-col">
+      <div className="relative flex h-full min-w-0 flex-col">
       <div className="mb-3 flex items-start justify-between gap-3">
         <span
           className="min-w-0 max-w-full truncate rounded-full border px-2.5 py-1 text-[9px] font-semibold uppercase tracking-widest sm:text-[10px]"
@@ -282,7 +280,7 @@ export default function ProjectPod({ project, onClick, index = 0, spotlight = fa
               target="_blank"
               rel="noopener noreferrer"
               onClick={(event) => event.stopPropagation()}
-              className="inline-flex min-w-0 items-center gap-1.5 transition-colors"
+              className="relative z-20 inline-flex min-w-0 items-center gap-1.5 transition-colors"
               style={{ color: project.color }}
             >
               <span className="truncate max-w-[120px] sm:max-w-[160px]">{project.liveUrl.replace(/^https?:\/\//, '')}</span>
@@ -294,7 +292,7 @@ export default function ProjectPod({ project, onClick, index = 0, spotlight = fa
             target="_blank"
             rel="noopener noreferrer"
             onClick={(event) => event.stopPropagation()}
-            className="inline-flex min-w-0 items-center gap-1.5 transition-colors"
+            className="relative z-20 inline-flex min-w-0 items-center gap-1.5 transition-colors"
             style={{ color: 'var(--dracula-comment)' }}
             onMouseEnter={(e) => (e.currentTarget.style.color = project.color)}
             onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--dracula-comment)')}
@@ -305,6 +303,13 @@ export default function ProjectPod({ project, onClick, index = 0, spotlight = fa
         </div>
       </div>
       </div>
+
+      <Link
+        href={`/projects/${project.id}`}
+        onClick={handleCardClick}
+        aria-label={`${t.common.viewProject}: ${project.name}`}
+        className="absolute inset-0 z-10"
+      />
     </motion.article>
   );
 }

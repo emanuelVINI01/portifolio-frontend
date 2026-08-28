@@ -2,6 +2,13 @@ import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import ProjectsContent from './ProjectsContent';
 
+// `ProjectsContent` reads `useSearchParams()` (for the `?project=` deep-link).
+// On a fully static route that bails the whole tree to client-side-only
+// rendering, so crawlers never see the project grid/links in the initial
+// HTML. Forcing per-request rendering keeps real content (and real links to
+// /projects/[slug]) in the HTML Google actually fetches.
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Projetos',
   description:
