@@ -52,9 +52,9 @@ const projectsPt: Project[] = [
     name: 'Simple Bank',
     shortDesc: 'Demo de banco mobile-first com dupla entrada contábil e três camadas de IA aplicada.',
     longDesc:
-      'Aplicação full-stack mobile-first que simula um ledger bancário completo, com apps Web (Next.js) e Mobile (Expo/React Native) consumindo a mesma API autenticada. Implementa autenticação via Auth.js, transferências com chave UUID e QR code, e três camadas de IA: pontuação de risco por transação, consultor financeiro que analisa os últimos 30 dias e um comando de transferência em linguagem natural. O design segue a paleta Dracula com painéis glassmorphism e transições Framer Motion. Débitos e créditos são gravados atomicamente em transação Prisma sobre SQLite.',
+      'Aplicação full-stack mobile-first que simula um ledger bancário completo, com apps Web (Next.js) e Mobile (Expo/React Native) consumindo a mesma API autenticada. Implementa autenticação via Auth.js, transferências com chave UUID e QR code, e três camadas de IA: pontuação de risco por transação, consultor financeiro que analisa os últimos 30 dias e um comando de transferência em linguagem natural. O design segue a paleta Dracula com painéis glassmorphism e transições Framer Motion. Débitos e créditos são gravados atomicamente em transação Prisma sobre PostgreSQL.',
     category: 'Full Stack',
-    tech: ['Next.js', 'Auth.js', 'Prisma', 'SQLite', 'Expo', 'Google Gemini', 'TypeScript', 'Tailwind CSS'],
+    tech: ['Next.js', 'Auth.js', 'Prisma', 'PostgreSQL', 'Expo', 'Google Gemini', 'TypeScript', 'Tailwind CSS'],
     color: '#bd93f9',
     glowColor: 'rgba(189, 147, 249, 0.25)',
     githubUrl: 'https://github.com/emanuelVINI01/simple-bank',
@@ -122,7 +122,7 @@ const projectsPt: Project[] = [
     tech: ['Next.js', 'TypeScript', 'React', 'Tailwind CSS', 'Prisma', 'PostgreSQL', 'Google Gemini', 'Zod'],
     color: '#34d399',
     glowColor: 'rgba(52, 211, 153, 0.25)',
-    githubUrl: 'https://github.com/emanuelVINI01/api-flash',
+    githubUrl: 'https://github.com/emanuelVINI01/apiflash',
     liveUrl: 'https://apiflash.emanuelvini.dev',
     badges: ['API', 'AI', 'Speed Optimized', 'Open Source', 'TypeScript'],
     highlights: [
@@ -231,7 +231,7 @@ const projectsPt: Project[] = [
     color: '#32a885',
     glowColor: 'rgba(50, 168, 133, 0.22)',
     githubUrl: 'https://github.com/emanuelVINI01/RyzenShopBot',
-    badges: ['Discord Bot', 'Open Source', 'TypeScript'],
+    badges: ['Discord Bot', 'Legacy', 'Open Source', 'TypeScript'],
     highlights: [
       { label: 'Tickets', value: 'Painel com select menus e categorias dinâmicas' },
       { label: 'Economia', value: 'Carteira, banco, trabalho, daily e leaderboard' },
@@ -452,9 +452,9 @@ const projectsEn: Project[] = [
     name: 'Simple Bank',
     shortDesc: 'Mobile-first banking ledger demo with double-entry bookkeeping and three layers of applied AI.',
     longDesc:
-      'Full-stack mobile-first application simulating a complete banking ledger, with Web (Next.js) and Mobile (Expo/React Native) apps consuming the same authenticated API. Implements Auth.js authentication, UUID-based transfers with QR code payment keys, and three layers of AI: per-transaction risk scoring, a financial advisor that reviews the last 30 days of activity, and a natural-language transfer command. The UI follows the Dracula colour palette with glassmorphism panels and Framer Motion page transitions. Debits and credits are written atomically inside a Prisma transaction over SQLite.',
+      'Full-stack mobile-first application simulating a complete banking ledger, with Web (Next.js) and Mobile (Expo/React Native) apps consuming the same authenticated API. Implements Auth.js authentication, UUID-based transfers with QR code payment keys, and three layers of AI: per-transaction risk scoring, a financial advisor that reviews the last 30 days of activity, and a natural-language transfer command. The UI follows the Dracula colour palette with glassmorphism panels and Framer Motion page transitions. Debits and credits are written atomically inside a Prisma transaction over PostgreSQL.',
     category: 'Full Stack',
-    tech: ['Next.js', 'Auth.js', 'Prisma', 'SQLite', 'Expo', 'Google Gemini', 'TypeScript', 'Tailwind CSS'],
+    tech: ['Next.js', 'Auth.js', 'Prisma', 'PostgreSQL', 'Expo', 'Google Gemini', 'TypeScript', 'Tailwind CSS'],
     color: '#bd93f9',
     glowColor: 'rgba(189, 147, 249, 0.25)',
     githubUrl: 'https://github.com/emanuelVINI01/simple-bank',
@@ -522,7 +522,7 @@ const projectsEn: Project[] = [
     tech: ['Next.js', 'TypeScript', 'React', 'Tailwind CSS', 'Prisma', 'PostgreSQL', 'Google Gemini', 'Zod'],
     color: '#34d399',
     glowColor: 'rgba(52, 211, 153, 0.25)',
-    githubUrl: 'https://github.com/emanuelVINI01/api-flash',
+    githubUrl: 'https://github.com/emanuelVINI01/apiflash',
     liveUrl: 'https://apiflash.emanuelvini.dev',
     badges: ['API', 'AI', 'Speed Optimized', 'Open Source', 'TypeScript'],
     highlights: [
@@ -631,7 +631,7 @@ const projectsEn: Project[] = [
     color: '#32a885',
     glowColor: 'rgba(50, 168, 133, 0.22)',
     githubUrl: 'https://github.com/emanuelVINI01/RyzenShopBot',
-    badges: ['Discord Bot', 'Open Source', 'TypeScript'],
+    badges: ['Discord Bot', 'Legacy', 'Open Source', 'TypeScript'],
     highlights: [
       { label: 'Tickets', value: 'Interactive panel with dynamic select menu categories' },
       { label: 'Economy', value: 'Wallet, bank, work, daily rewards and leaderboard' },
@@ -851,9 +851,9 @@ const projectsDe: Project[] = [
     name: 'Simple Bank',
     shortDesc: 'Mobile-first Banking-Ledger-Demo mit doppelter Buchführung und drei KI-Ebenen.',
     longDesc:
-      'Full-Stack-Mobile-first-Anwendung, die ein vollständiges Banking-Ledger simuliert, mit Web- (Next.js) und Mobile-App (Expo/React Native), die dieselbe authentifizierte API nutzen. Implementiert Auth.js-Authentifizierung, UUID-basierte Überweisungen mit QR-Code-Zahlungsschlüsseln und drei KI-Ebenen: Risikobewertung pro Transaktion, einen Finanzberater, der die letzten 30 Tage analysiert, und einen Überweisungsbefehl in natürlicher Sprache. Die UI folgt der Dracula-Farbpalette mit Glassmorphism-Panels und Framer-Motion-Übergängen. Soll- und Habenbuchungen werden atomar in einer Prisma-Transaktion über SQLite geschrieben.',
+      'Full-Stack-Mobile-first-Anwendung, die ein vollständiges Banking-Ledger simuliert, mit Web- (Next.js) und Mobile-App (Expo/React Native), die dieselbe authentifizierte API nutzen. Implementiert Auth.js-Authentifizierung, UUID-basierte Überweisungen mit QR-Code-Zahlungsschlüsseln und drei KI-Ebenen: Risikobewertung pro Transaktion, einen Finanzberater, der die letzten 30 Tage analysiert, und einen Überweisungsbefehl in natürlicher Sprache. Die UI folgt der Dracula-Farbpalette mit Glassmorphism-Panels und Framer-Motion-Übergängen. Soll- und Habenbuchungen werden atomar in einer Prisma-Transaktion über PostgreSQL geschrieben.',
     category: 'Full Stack',
-    tech: ['Next.js', 'Auth.js', 'Prisma', 'SQLite', 'Expo', 'Google Gemini', 'TypeScript', 'Tailwind CSS'],
+    tech: ['Next.js', 'Auth.js', 'Prisma', 'PostgreSQL', 'Expo', 'Google Gemini', 'TypeScript', 'Tailwind CSS'],
     color: '#bd93f9',
     glowColor: 'rgba(189, 147, 249, 0.25)',
     githubUrl: 'https://github.com/emanuelVINI01/simple-bank',
@@ -921,7 +921,7 @@ const projectsDe: Project[] = [
     tech: ['Next.js', 'TypeScript', 'React', 'Tailwind CSS', 'Prisma', 'PostgreSQL', 'Google Gemini', 'Zod'],
     color: '#34d399',
     glowColor: 'rgba(52, 211, 153, 0.25)',
-    githubUrl: 'https://github.com/emanuelVINI01/api-flash',
+    githubUrl: 'https://github.com/emanuelVINI01/apiflash',
     liveUrl: 'https://apiflash.emanuelvini.dev',
     badges: ['API', 'AI', 'Speed Optimized', 'Open Source', 'TypeScript'],
     highlights: [
@@ -1030,7 +1030,7 @@ const projectsDe: Project[] = [
     color: '#32a885',
     glowColor: 'rgba(50, 168, 133, 0.22)',
     githubUrl: 'https://github.com/emanuelVINI01/RyzenShopBot',
-    badges: ['Discord Bot', 'Open Source', 'TypeScript'],
+    badges: ['Discord Bot', 'Legacy', 'Open Source', 'TypeScript'],
     highlights: [
       { label: 'Tickets', value: 'Interaktives Panel mit dynamischen Kategorien' },
       { label: 'Wirtschaft', value: 'Wallet, Bank, Arbeit, tägliche Belohnungen und Leaderboard' },

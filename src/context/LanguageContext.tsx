@@ -14,7 +14,7 @@ const LanguageContext = createContext<LanguageContextProps | undefined>(undefine
 const SUPPORTED_LANGUAGES: Language[] = ['pt', 'en', 'de'];
 
 export const LanguageProvider = ({ children }: { children: React.ReactNode }) => {
-  const [language, setLanguageState] = useState<Language>('pt');
+  const [language, setLanguageState] = useState<Language>('en');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -24,12 +24,12 @@ export const LanguageProvider = ({ children }: { children: React.ReactNode }) =>
         setLanguageState(storedLang);
       } else {
         const browserLang = navigator.language.toLowerCase();
-        if (browserLang.startsWith('en')) {
-          setLanguageState('en');
+        if (browserLang.startsWith('pt')) {
+          setLanguageState('pt');
         } else if (browserLang.startsWith('de')) {
           setLanguageState('de');
         } else {
-          setLanguageState('pt');
+          setLanguageState('en');
         }
       }
       setMounted(true);
@@ -45,7 +45,7 @@ export const LanguageProvider = ({ children }: { children: React.ReactNode }) =>
 
   const t = dictionaries[language];
 
-  // While not mounted, render children with default language (pt) to prevent hydration mismatches
+  // While not mounted, render children with default language (en) to prevent hydration mismatches
   // but it's safe to just return provider. Wait, hydration mismatch on text is possible.
   // We'll let React handle it or the user can ignore brief flash.
   // Next.js might complain if text differs between server (pt) and client (en) on first render.
