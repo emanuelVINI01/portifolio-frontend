@@ -48,6 +48,29 @@ export interface Project {
 
 const projectsPt: Project[] = [
   {
+    id: 'my-bet',
+    name: 'My Bet',
+    shortDesc: 'Plataforma de iGaming robusta com 13 jogos, ledger financeiro idempotente e 8 integrações PIX.',
+    longDesc:
+      'Sistema completo de iGaming focado em engenharia de estado e integridade financeira, rodando com Next.js 16, Redis e Prisma. Conta com 13 jogos originais divididos em três arquiteturas de engine: Stateless (ex: Dice, Plinko), Stateful (ex: Mines, Dungeon) que permite reconexão via locks no Redis, e Real-time (ex: Crash, Race) via Server-Sent Events (SSE). O núcleo financeiro utiliza um ledger em centavos (inteiros) com controle rigoroso de idempotência via referenceId único, eliminando risco de double spending. Inclui também RBAC com 6 papéis, sistema de recompensas, afiliados, chat ao vivo e suporte integrado.',
+    category: 'Full Stack',
+    tech: ['Next.js', 'NextAuth', 'Prisma', 'Redis', 'SSE', 'Framer Motion', 'Tailwind CSS', 'TypeScript'],
+    color: '#bd93f9',
+    glowColor: 'rgba(189, 147, 249, 0.25)',
+    githubUrl: 'https://github.com/emanuelVINI01/my-bet',
+    liveUrl: 'https://bet.emanuelvini.dev',
+    images: ['/projects/my-bet/image1.png'],
+    badges: ['Transactional', 'Auth', 'Real-Time', 'Speed Optimized', 'TypeScript'],
+    highlights: [
+      { label: 'Engines', value: '13 jogos em arquiteturas Stateless, Stateful e SSE' },
+      { label: 'Integridade', value: 'Ledger idempotente em centavos e locks via Redis' },
+      { label: 'Pagamentos', value: '8 integrações nativas de gateway PIX construídas' },
+      { label: 'Ecossistema', value: 'RBAC (6 papéis), recompensas, afiliados e chat' },
+    ],
+    year: 2026,
+    updatedAt: '2026-08-30',
+  },
+  {
     id: 'simple-bank',
     name: 'Simple Bank',
     shortDesc: 'Demo de banco mobile-first com dupla entrada contábil e três camadas de IA aplicada.',
@@ -448,6 +471,29 @@ const projectsPt: Project[] = [
 
 const projectsEn: Project[] = [
   {
+    id: 'my-bet',
+    name: 'My Bet',
+    shortDesc: 'Robust iGaming platform featuring 13 games, an idempotent financial ledger, and 8 PIX integrations.',
+    longDesc:
+      'Comprehensive iGaming system focused on state engineering and financial integrity, powered by Next.js 16, Redis, and Prisma. It features 13 original games divided into three engine architectures: Stateless (e.g., Dice, Plinko), Stateful (e.g., Mines, Dungeon) allowing reconnection via Redis locks, and Real-time (e.g., Crash, Race) via Server-Sent Events (SSE). The financial core utilizes a ledger in cents (integers) with strict idempotency control via unique referenceIds, eliminating double spending risks. It also includes RBAC with 6 roles, a reward system, affiliates, live chat, and integrated support.',
+    category: 'Full Stack',
+    tech: ['Next.js', 'NextAuth', 'Prisma', 'Redis', 'SSE', 'Framer Motion', 'Tailwind CSS', 'TypeScript'],
+    color: '#bd93f9',
+    glowColor: 'rgba(189, 147, 249, 0.25)',
+    githubUrl: 'https://github.com/emanuelVINI01/my-bet',
+    liveUrl: 'https://bet.emanuelvini.dev',
+    images: ['/projects/my-bet/image1.png'],
+    badges: ['Transactional', 'Auth', 'Real-Time', 'Speed Optimized', 'TypeScript'],
+    highlights: [
+      { label: 'Engines', value: '13 games across Stateless, Stateful, and SSE architectures' },
+      { label: 'Integrity', value: 'Idempotent ledger in cents and distributed Redis locks' },
+      { label: 'Payments', value: '8 native PIX gateway integrations built-in' },
+      { label: 'Ecosystem', value: 'RBAC (6 roles), rewards, affiliates, and live chat' },
+    ],
+    year: 2026,
+    updatedAt: '2026-08-30',
+  },
+  {
     id: 'simple-bank',
     name: 'Simple Bank',
     shortDesc: 'Mobile-first banking ledger demo with double-entry bookkeeping and three layers of applied AI.',
@@ -846,6 +892,29 @@ const projectsEn: Project[] = [
   },
 ];
 const projectsDe: Project[] = [
+  {
+    id: 'my-bet',
+    name: 'My Bet',
+    shortDesc: 'Robuste iGaming-Plattform mit 13 Spielen, einem idempotenten Finanz-Ledger und 8 PIX-Integrationen.',
+    longDesc:
+      'Umfassendes iGaming-System mit Fokus auf State-Engineering und finanzieller Integrität, basierend auf Next.js 16, Redis und Prisma. Es bietet 13 originäre Spiele, unterteilt in drei Engine-Architekturen: Stateless (z.B. Dice, Plinko), Stateful (z.B. Mines, Dungeon), die eine Wiederverbindung über Redis-Locks ermöglichen, und Real-time (z.B. Crash, Race) über Server-Sent Events (SSE). Der Finanzkern nutzt ein Ledger in Cent (Ganzzahlen) mit strenger Idempotenzkontrolle durch eindeutige referenceIds, was Double-Spending-Risiken eliminiert. Beinhaltet auch RBAC mit 6 Rollen, ein Belohnungssystem, Affiliates, Live-Chat und integrierten Support.',
+    category: 'Full Stack',
+    tech: ['Next.js', 'NextAuth', 'Prisma', 'Redis', 'SSE', 'Framer Motion', 'Tailwind CSS', 'TypeScript'],
+    color: '#bd93f9',
+    glowColor: 'rgba(189, 147, 249, 0.25)',
+    githubUrl: 'https://github.com/emanuelVINI01/my-bet',
+    liveUrl: 'https://bet.emanuelvini.dev',
+    images: ['/projects/my-bet/image1.png'],
+    badges: ['Transactional', 'Auth', 'Real-Time', 'Speed Optimized', 'TypeScript'],
+    highlights: [
+      { label: 'Engines', value: '13 Spiele in Stateless-, Stateful- und SSE-Architekturen' },
+      { label: 'Integrität', value: 'Idempotentes Ledger in Cent und verteilte Redis-Locks' },
+      { label: 'Zahlungen', value: '8 native PIX-Gateway-Integrationen integriert' },
+      { label: 'Ökosystem', value: 'RBAC (6 Rollen), Belohnungen, Affiliates und Live-Chat' },
+    ],
+    year: 2026,
+    updatedAt: '2026-08-30',
+  },
   {
     id: 'simple-bank',
     name: 'Simple Bank',

@@ -86,7 +86,7 @@ export default function ProjectsContent() {
   }, [categories, projects]);
 
   const spotlightProjects = useMemo(() => {
-    const spotlightIds = ['browia', 'cvm-runtime', 'simple-bank'];
+    const spotlightIds = ['browia', 'cvm-runtime', 'my-bet'];
     return spotlightIds
       .map((id) => projects.find((project) => project.id === id))
       .filter(Boolean) as Project[];

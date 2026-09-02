@@ -26,6 +26,7 @@ export interface ProjectVisual {
 }
 
 export const PROJECT_VISUALS: Record<string, ProjectVisual> = {
+  'my-bet': { pattern: 'ledger', icon: 'landmark', tag: '/ledger/atomic-tx' },
   'simple-bank': { pattern: 'ledger', icon: 'landmark', tag: '/ledger/atomic-tx' },
   'cvm-runtime': { pattern: 'circuit', icon: 'cpu', tag: '0x7C00 :: ring0' },
   'cvm-compiler': { pattern: 'circuit', icon: 'binary', tag: 'cvm -> asm -> vm' },
