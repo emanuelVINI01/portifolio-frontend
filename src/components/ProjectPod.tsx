@@ -16,6 +16,7 @@ import {
   Database,
   ExternalLink,
   FileUp,
+  FlaskConical,
   Gauge,
   GitFork,
   History,
@@ -64,6 +65,7 @@ const BADGE_CONFIG: Record<string, { icon: typeof Sparkles; color: string }> = {
   'Browser Extension': { icon: Puzzle, color: '#8be9fd' },
   Electron: { icon: Atom, color: '#8be9fd' },
   'Bare Metal': { icon: Cpu, color: '#ff5555' },
+  Tested: { icon: FlaskConical, color: '#50fa7b' },
 };
 
 export const WATERMARK_ICONS: Record<string, typeof Sparkles> = {
