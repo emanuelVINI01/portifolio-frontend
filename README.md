@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# portfolio
 
-## Getting Started
+Interactive technical portfolio of Emanuel Vini, built to present a trajectory, projects, and engineering evidence in an auditable way. This repository works as a public index of technical evolution: from the Java/Kotlin base in servers and automation to the current phase with web products, transactional systems, and developer tools.
 
-First, run the development server:
+## Purpose
+
+The project is not just a landing page. It organizes the professional narrative around proofs: repositories, stacks, architectural decisions, timeline, and projects with enough context for technical evaluation. The reading was designed as a technical showcase: engineering teams can scan the history, inspect evidence, filter projects, and open runbooks with command blocks.
+
+## Technical Timeline
+
+- 2020-2021: entry through Java, Minecraft, `.jar`, `plugin.yml`, Bukkit/Spigot, and direct runtime debugging.
+- 2022-2023: evolution to JVM, Kotlin, Discord bots, multi-server APIs, SQL, and automation linked to real communities.
+- 2026: consolidation in demonstrable applications with Next.js, TypeScript, Prisma, PostgreSQL, Fastify, authentication, dashboards, and transactional systems.
+
+## Stack
+
+- Next.js 16 with App Router
+- React 19
+- TypeScript
+- Tailwind CSS 4
+- Framer Motion
+- Lucide React and React Icons
+
+## Repository Architecture
+
+- `app/`: main routes, landing page, and project catalog.
+- `src/components/`: UI components, navigation, motion, cards, modal, and visual terminal.
+- `src/data/projects.ts`: typed project catalog in Portuguese and English.
+- `src/i18n/`: content dictionaries and bilingual copy.
+- `context/contexto_github.md`: historical snapshot used as the base for repository auditing.
+
+## Design Decisions
+
+- Dark interface, terminal-oriented and meant for technical reading, without relying on a generic resume presentation.
+- Bilingual content with `LanguageContext`, keeping Portuguese and English aligned.
+- Cards and modals treat projects as auditable evidence, not as empty showcases.
+- Motion is used to guide reading and visual hierarchy, not to hide a lack of content.
+
+## Local Execution
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Quality
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run lint
+npm run build
+```
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Use `npm run lint` before UI changes and `npm run build` when altering the route structure, shared components, project data, or dictionaries.
